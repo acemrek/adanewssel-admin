@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="../operationsTemplate.xhtml">
+		
+		<ui:define name="menuHeader">
+			<h:outputText value="#{msg['videoOperations.header']}" />
+		</ui:define>
+		
+		<ui:define name="menu">
+			<h:form>
+				<p:menu id="videoOpsMenu" styleClass="opMenu">
+					
+					<p:menuitem value="#{msg['videoOperations.createVideo']}" styleClass="#{videoOperationsBean.getCssClass('createVideo')}" 
+								action="#{videoOperationsBean.showCreateVideoForm}" update="#{contentsToUpdateAfterOpChange}" />
+								
+					<p:menuitem value="#{msg['videoOperations.editVideo']}" styleClass="#{videoOperationsBean.getCssClass('editVideo')}"  
+								action="#{videoOperationsBean.showEditVideoForm}" update="#{contentsToUpdateAfterOpChange}" />
+					
+				</p:menu>
+			</h:form>		
+		</ui:define>
+		
+		<ui:define name="contentHeader">
+			<h:outputText value="#{videoOperationsBean.getOperationHeader()}" />
+		</ui:define>
+		
+		<ui:define name="content">
+			<p:outputPanel id="videoOperationsMainPanel">
+				<ui:include src="createVideo.xhtml" />
+				<ui:include src="editVideo.xhtml" />
+			</p:outputPanel>			
+		</ui:define>
+		
+	</ui:composition>
+
+</html>

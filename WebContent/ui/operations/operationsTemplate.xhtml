@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+
+	<ui:composition template="/ui/template.xhtml">
+		<ui:define name="body">
+			
+			<h:form>
+				 <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" globalOnly="true" />  
+			</h:form>
+			
+			<ui:include src="dialogs.xhtml" />
+			
+			<ui:param name="contentsToUpdateAfterOpChange" value=":operationsMenu :operationsContent :operationsMenuHeader :operationsContentHeader" />
+			
+			<pe:layout tabs="#{sessionData.operationTabs}">
+                <pe:layoutPane position="north" size="70" resizable="false" closable="false" >
+                    <h:panelGrid columns="1" style="width:100%;" >
+                    	<p:toolbar style="height:40px;">
+                    		<p:toolbarGroup align="left">
+                    			<h:form>
+	                    			<h:panelGrid columns="2">
+		                    			<h:outputText value="#{msg['header.currentOperationSite']}" />
+		                    			<p:selectOneMenu value="#{sessionData.currentSite}" converter="#{siteConverter}" >  
+		            						<f:selectItems value="#{sessionData.currentUser.sites}" var="site" itemLabel="#{site.domainName}" itemValue="#{site}"/>  
+		            						<p:ajax oncomplete="window.location.reload()"/>
+		       	 						</p:selectOneMenu>  
+	                    			</h:panelGrid>
+                    			</h:form>
+                    		</p:toolbarGroup> 
+                    		<p:toolbarGroup align="right">
+                    			<h:outputText value="#{viewUtils.getParametrizedMsg('header.welcome', sessionData.currentUser.firstname, sessionData.currentUser.lastname)}" />
+                    			<p:separator /> 
+                    			<p:button href="/j_spring_security_logout" value="#{msg['header.logout']}" />	
+                    		</p:toolbarGroup>  
+                    	</p:toolbar>
+                    </h:panelGrid>
+                </pe:layoutPane>
+ 				<pe:layoutPane position="west" minSize="200" maxSize="400">
+					<f:facet name="header">
+						<p:outputPanel id="operationsMenuHeader">
+							<ui:insert name="menuHeader" /> 
+						</p:outputPanel>
+					</f:facet>
+ 				   <p:outputPanel id="operationsMenu">
+                   		<ui:insert name="menu" />
+                   </p:outputPanel>
+                </pe:layoutPane>
+                <pe:layoutPane position="center" >
+					<f:facet name="header">
+						<p:outputPanel id="operationsContentHeader">
+							<ui:insert name="contentHeader" /> 
+						</p:outputPanel>
+					</f:facet>
+                	<p:outputPanel id="operationsContent">
+						<ui:insert name="content" />
+					</p:outputPanel>
+                </pe:layoutPane>
+                <pe:layoutPane position="south" size="28" resizable="false" closable="false" spacing="3" statusbar="true">
+                    
+                </pe:layoutPane>
+            </pe:layout>
+			
+		</ui:define>
+	</ui:composition>
+
+</html>

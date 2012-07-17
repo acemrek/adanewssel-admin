@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+	
+	<h:form id="listColumnsForm" rendered="#{columnOperationsBean.selectedOperation == 'editColumn'}">
+		
+		<h:panelGrid columns="2">
+	       	<h:panelGrid columns="1" id="selectedColumnistPhoto">
+	       		<p:outputPanel rendered="#{columnOperationsBean.selectedColumnist != null}">
+	       			<cc:image photo="#{columnOperationsBean.selectedColumnist.photo}" size="thumb" />
+	       		</p:outputPanel>
+	       	</h:panelGrid>
+			<p:selectOneMenu panelStyle="height:300px;" value="#{columnOperationsBean.selectedColumnist}" converter="#{columnistConverter}" effect="fade" var="c" required="true">  
+	       		<f:selectItem itemLabel="#{msg['column.columnist']}" itemValue="" />  
+	        	<f:selectItems value="#{columnOperationsBean.allColumnists}" var="columnist" itemLabel="#{columnist.firstname} #{columnist.lastname}" itemValue="#{columnist}"/>  
+				<p:column> 
+					<cc:image photo="#{c.photo}" size="thumb" /> 
+	            </p:column>  
+				<p:column>  
+	            	<h:outputText value="#{c.firstname} #{c.lastname}" />  
+	        	</p:column>
+	        	<p:ajax update="editColumnListPanel, :editColumnPanel, selectedColumnistPhoto" listener="#{columnOperationsBean.handleColumnistChange}" />  
+	       	</p:selectOneMenu>
+		</h:panelGrid>
+
+       	
+       	<p:outputPanel id="editColumnListPanel">
+      		<p:dataTable var="column" value="#{columnOperationsBean.columnsByColumnist}" > 
+      			<ui:include src="../paginator.xhtml" />
+      			
+		 		<p:column headerText="#{msg['general.createDate']}">  
+					<h:outputText value="#{column.createDate}">
+						 <f:convertDateTime pattern="#{Const.DATE_END_TIME_FORMAT}" />
+					</h:outputText>
+	        	</p:column>
+	        	
+		 		<p:column headerText="#{msg['general.title']}">  
+	            	<h:outputText value="#{column.title}" />  
+	  			</p:column>
+	  			
+	  			<p:column headerText="#{msg['general.publishStatus']}">
+	            	<h:outputText value="#{msg['general.publishStatus.offTheAir']}" rendered="#{column.publishStatus.value == '0'}" />
+	            	<h:outputText value="#{msg['general.publishStatus.onTheAir']}" rendered="#{column.publishStatus.value == '1'}" />
+	  			</p:column>
+	  			
+	  			<p:column>
+	      			<p:commandButton icon="ui-icon-wrench" action="#{columnOperationsBean.selectWillBeEditedColumn(column.id)}" update=":editColumnPanel" />
+	      		</p:column>
+	  		</p:dataTable>
+		</p:outputPanel>
+		
+	</h:form>
+	
+	<p:outputPanel id="editColumnPanel" rendered="#{columnOperationsBean.selectedOperation == 'editColumn'}">
+		<ui:param name="column" value="#{columnOperationsBean.willBeEditedColumn}" />
+		<br />
+		<br />
+		<p:panel header="#{viewUtils.getParametrizedMsg('column.edit.header', column.title)}" rendered="#{columnOperationsBean.willBeEditedColumn != null}">
+			<p:tabView id="editColumnTabs">
+				<p:tab id="generalColumnInformationTab" title="#{msg['column.generalInformation']}">
+					<ui:include src="editColumnGeneralInformationTab.xhtml" />
+				</p:tab>
+				<p:tab id="columnInlinePhotoTab" title="#{msg['column.inlinePhotos']}">
+					<ui:include src="editColumnInlinePhotosTab.xhtml" />
+				</p:tab>
+				<p:tab id="columnPhotoGaleriesTab" title="#{msg['column.photoGaleries']}">
+					<ui:include src="editColumnPhotoGaleriesTab.xhtml" />
+				</p:tab>
+				<p:tab id="columnVideosTab" title="#{msg['column.videos']}">
+					<ui:include src="editColumnVideosTab.xhtml" />
+				</p:tab>
+				<p:tab id="columnAudiosTab" title="#{msg['column.audios']}">
+					<ui:include src="editColumnAudiosTab.xhtml" />
+				</p:tab>
+			</p:tabView>
+			
+			<pe:tooltip value="#{msg['tooltip.keyfiler.idEntarence']}" forSelector=".idKeyFilter" shared="true" position="left center" targetPosition="right center"/>
+		</p:panel>
+	</p:outputPanel>
+	
+</html>

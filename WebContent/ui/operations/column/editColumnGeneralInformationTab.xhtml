@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+	
+	<h:form>
+		<h:panelGrid columns="3">			
+			<h:outputText value="#{msg['general.title']}" />
+			<p:inputText id="columnHeader" value="#{column.title}" required="true" />
+			<p:message for="columnHeader" />
+			
+			<h:outputText value="#{msg['general.text']}" />
+			<pe:ckEditor id="htmlText" value="#{column.htmlText}" language="tr" toolbar="[
+																							{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+																							{ name: 'document', items : [ 'Source','-','Preview','Templates', 'Maximize', 'ShowBlocks', 'SelectAll' ] },
+																							{ name: 'editing', items : [ 'Find','Replace'] },
+																							'/',
+																							{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
+																							{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar'] },
+																							'/',
+																							{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+																							{ name: 'colors', items : [ 'TextColor','BGColor' ] },
+																							{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+																							'/',
+																							{ name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] }
+																						]"
+						/> 
+			<p:message for="htmlText" />
+			
+			<h:outputText value="#{msg['general.publishStatus']}" />
+			<p:selectOneButton id="publishStatus" value="#{column.publishStatus}" required="true">
+				<f:selectItem itemLabel="#{msg['general.publishStatus.onTheAir']}" itemValue="ON_THE_AIR" />
+				<f:selectItem itemLabel="#{msg['general.publishStatus.offTheAir']}" itemValue="OFF_THE_AIR" />
+			</p:selectOneButton>
+			<p:message for="publishStatus" />
+			
+			<p:commandButton value="#{msg['general.update']}" action="#{columnOperationsBean.editColumn}" process="@form" update=":editColumnPanel, :listColumnsForm"/>
+		</h:panelGrid>
+	</h:form>
+					
+</html>

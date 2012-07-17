@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+	
+		<h:form id="videoListForm" rendered="#{videoOperationsBean.selectedOperation == 'editVideo'}">
+			<p:dataTable id="videosTable" var="video" value="#{videoOperationsBean.allVideos}">
+				<ui:include src="../paginator.xhtml" />
+				
+				<p:column headerText="#{msg['general.id']}">
+					<h:outputText value="#{video.id}" />
+				</p:column>			
+				<p:column headerText="#{msg['general.title']}">  
+					<h:outputText value="#{video.title}" escape="false"/>
+		        </p:column>
+				<p:column headerText="#{msg['general.description']}">  
+					<h:outputText value="#{video.description}" escape="false"/>
+		        </p:column>
+	  			<p:column headerText="#{msg['general.publishStatus']}">
+	            	<h:outputText value="#{msg['general.publishStatus.offTheAir']}" rendered="#{video.publishStatus.value == '0'}" />
+	            	<h:outputText value="#{msg['general.publishStatus.onTheAir']}" rendered="#{video.publishStatus.value == '1'}" />
+	  			</p:column>
+	        	<p:column headerText="#{msg['general.createDate']}">  
+					<h:outputText value="#{video.createDate}">
+						 <f:convertDateTime pattern="#{Const.DATE_END_TIME_FORMAT}" />
+					</h:outputText>
+	        	</p:column>
+	        	<p:column headerText="#{msg['general.edit']}">
+					<p:commandButton icon="ui-icon-wrench" action="#{videoOperationsBean.selectWillBeEditedVideo(video.id)}" update=":videoEditPanel" />
+	        	</p:column>
+	        	<p:column headerText="#{msg['general.delete']}">
+					<p:commandButton icon="ui-icon-trash" action="#{videoOperationsBean.selectWillBeDeletedVideo(video)}" update=":videoEditPanel, :confirmationDeleteVideoForm" oncomplete="confirmationDeleteVideo.show();"/>
+	        	</p:column>
+			</p:dataTable>  
+		</h:form>
+		
+		<p:outputPanel id="videoEditPanel">
+			<ui:param name="video" value="#{videoOperationsBean.willBeEditedVideo}" />
+			<br />
+			<br />
+			<p:panel header="#{viewUtils.getParametrizedMsg('video.edit.header', video.title)}" rendered="#{videoOperationsBean.selectedOperation == 'editVideo' and videoOperationsBean.willBeEditedVideo != null}"> 
+				<p:tabView id="editVideoTabs">
+					<p:tab id="generalVideoInformationTab" title="#{msg['video.generalInformation']}">
+						<h:form binding="#{videoOperationsBean.editVideoForm}">	
+							<h:panelGrid columns="3">
+								<h:outputText value="#{msg['general.title']}" />
+								<p:inputText id="title" value="#{video.title}" required="true" />
+								<p:message for="title" />
+						
+								<h:outputText value="#{msg['general.description']}" />
+								<p:editor id="description" value="#{video.description}" controls="bold italic underline strikethrough" required="true" height="100" width="400" />
+								<p:message for="description" />
+						
+								<h:outputText value="#{msg['general.publishStatus']}" />
+								<p:selectOneButton id="publishStatus" value="#{video.publishStatus}" required="true" >
+									<f:selectItem itemLabel="#{msg['general.publishStatus.onTheAir']}" itemValue="ON_THE_AIR" />
+									<f:selectItem itemLabel="#{msg['general.publishStatus.offTheAir']}" itemValue="OFF_THE_AIR" />
+								</p:selectOneButton>
+								<p:message for="publishStatus" />
+						
+								<h:outputText value="#{msg['general.category']}" />
+								<p:selectOneMenu id="category" value="#{video.category}" converter="#{categoryConverter}" effect="fade" required="true" >
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems value="#{siteCategoriesHelper.siteCategories}" var="cat" itemLabel="#{viewUtils.getParametrizedMsg(cat.i18nKey)}" itemValue="#{cat}" />
+								</p:selectOneMenu>
+								<p:message for="category" />
+							</h:panelGrid>	
+							
+							<p:commandButton value="#{msg['general.update']}" action="#{videoOperationsBean.updateVideo}" update=":videoListForm, :videoEditPanel" />
+						</h:form>
+					</p:tab>		
+					<p:tab id="videoMediaTab" title="#{msg['video.media']}">
+						
+						<p:outputPanel id="videoWatchPanel" rendered="#{videoOperationsBean.willBeEditedVideo.mp4Path != null}">
+							<video class="video-js vjs-default-skin" controls="controls"  preload="none" width="#{viewUtils.videoThumbnailMediumWidth}" data-setup="{}" poster="#{viewUtils.getFullBinaryUrl(videoOperationsBean.willBeEditedVideo.videoThumbnail.mediumPath)}" >
+							  <source src="#{viewUtils.getFullBinaryUrl(videoOperationsBean.willBeEditedVideo.mp4Path)}" type='video/mp4' />
+							  <source src="#{viewUtils.getFullBinaryUrl(videoOperationsBean.willBeEditedVideo.webMPath)}" type='video/webm' />
+							  <source src="#{viewUtils.getFullBinaryUrl(videoOperationsBean.willBeEditedVideo.oggTheoraPath)}" type='video/ogg' />
+							</video>
+						</p:outputPanel>
+						
+						<p:outputPanel id="videoUploadPanel" rendered="#{videoOperationsBean.willBeEditedVideo.videoThumbnail == null}">
+							
+							<ui:param name="videoTool" value="#{videoOperationsBean.videoUploadTool}" />
+							
+							<p:panel header="#{msg['videoTool.uploadVideoAssets']}">
+								
+								<p:panel header="#{msg['videoTool.thumbnailUpload.upload.header']}">
+									<h:form>
+										<cc:photoUpload tool="#{videoTool.photoUploadTool}" />
+									</h:form>
+								</p:panel>
+								
+								<p:panel header="#{msg['videoTool.mp4Upload.upload.header']}">
+									<h:form>
+										<p:fileUpload label="#{msg['general.selectFile']}" fileUploadListener="#{videoTool.handleMp4Upload}" mode="advanced" auto="true" allowTypes="/(\.|\/)(mp4)$/" update="@form" rendered="#{videoTool.videoBinary.mp4Path == null}"/>
+										<h:outputText value="#{msg['videoTool.mp4.uploaded.successfully']}" rendered="#{videoTool.videoBinary.mp4Path != null}"/>
+										<br />
+									</h:form>
+								</p:panel>
+								
+								<p:panel header="#{msg['videoTool.oggTheoraUpload.upload.header']}">
+									<h:form>
+										<p:fileUpload label="#{msg['general.selectFile']}" fileUploadListener="#{videoTool.handleOggTheoraUpload}" mode="advanced" auto="true" allowTypes="/(\.|\/)(ogv)$/" update="@form" rendered="#{videoTool.videoBinary.oggTheoraPath == null}"/>
+										<h:outputText value="#{msg['videoTool.oggTheora.uploaded.successfully']}" rendered="#{videoTool.videoBinary.oggTheoraPath != null}"/>
+										<br />
+									</h:form>					
+								</p:panel>
+								
+								<p:panel header="#{msg['videoTool.webMUpload.upload.header']}">
+									<h:form>
+										<p:fileUpload label="#{msg['general.selectFile']}" fileUploadListener="#{videoTool.handleWebmUpload}" mode="advanced" auto="true" allowTypes="/(\.|\/)(webm)$/" update="@form" rendered="#{videoTool.videoBinary.webMPath == null}"/>
+										<h:outputText value="#{msg['videoTool.webm.uploaded.successfully']}" rendered="#{videoTool.videoBinary.webMPath != null}"/>
+									</h:form>					
+								</p:panel>
+
+								<h:form id="videoFinishForm">
+									<br />
+									
+									<h:panelGrid columns="2">
+										<p:commandButton id="finishVideoUploadButton" value="#{msg['videoTool.finishUpload']}" action="#{videoTool.finishVideoUpload}" update="@form" />
+										<p:message for="finishVideoUploadButton" />	
+									</h:panelGrid>
+								</h:form>								
+
+							</p:panel>
+
+						</p:outputPanel>
+					</p:tab>
+				</p:tabView>
+			</p:panel>
+		</p:outputPanel>
+		
+	
+	
+</html>

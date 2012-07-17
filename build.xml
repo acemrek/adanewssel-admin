@@ -1,0 +1,32 @@
+<project name="adanewssel-admin" default="ivy-resolve" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property name="webroot.dir" location="WebContent" />
+
+	<!-- ivy specific -->
+	<property name="ivy.lib.dir" location="WebContent/WEB-INF/lib" />
+	<property name="compile.lib.dir" location="external-libs/compile-lib" />
+	<property name="src.lib.dir" location="external-libs/src-lib" />
+	<property name="report.dir" location="extra/docs/ivy-report" />
+	
+	<target name="ivy-resolve" depends="ivy-clean">
+		<ivy:retrieve conf="webinfBinaries" pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]"/>
+		<ivy:retrieve conf="compileBinaries" pattern="${compile.lib.dir}/[artifact]-[revision].[ext]"/>
+		<ivy:retrieve conf="sources" pattern="${src.lib.dir}/[artifact]-[revision]-sources.[ext]"/>
+	</target>
+	
+	<target name="ivy-report">
+	    <mkdir dir="report" />
+	    <ivy:resolve type="${ivy.resolve.types}"/>
+	    <ivy:report todir="${report.dir}" />
+	</target>
+
+	<target name="ivy-clean">
+		<delete includeemptydirs="true" >
+			<fileset dir="${ivy.lib.dir}" includes="**/*"/>
+			<fileset dir="${compile.lib.dir}" includes="**/*"/>
+			<fileset dir="${src.lib.dir}" includes="**/*"/>
+			<fileset dir="${report.dir}" includes="**/*"/>
+		</delete>
+	</target>
+
+</project>

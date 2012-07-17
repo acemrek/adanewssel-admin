@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ac.newsadmin.model.entity">
+	<class name="PortalAdmin" table="PORTAL_ADMIN">
+
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="firstname" type="string" column="FIRST_NAME" />
+		<property name="lastname" type="string" column="LAST_NAME" />
+		<property name="username" type="string" column="USERNAME" />
+		<property name="password" type="string" column="PASSWORD" />
+		<property name="email" type="string" column="EMAIL" />
+		
+		<bag name="sites" table="SITE_PORTALADMIN" lazy="false">
+			<key column="ADMIN_ID" />
+			<many-to-many column="SITE_ID" class="com.ac.newsadmin.model.entity.Site" />
+		</bag>
+
+	</class>
+</hibernate-mapping>

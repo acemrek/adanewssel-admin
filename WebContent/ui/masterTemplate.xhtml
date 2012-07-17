@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:p="http://primefaces.org/ui">
+      
+<f:view contentType="text/html" locale="tr">
+
+    <pe:head title="${msg['application.title']}">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="cache-control" content="no-cache"/>
+		<meta http-equiv="expires" content="0"/>
+        
+		<ui:insert name="css" />
+    </pe:head>
+    
+    <pe:importConstants className="com.ac.newsadmin.ui.GeneralConstants" var="Const" />
+    <pe:importConstants className="com.ac.common.utility.RegexUtils" var="RegexConst" />
+    
+    <ui:include src="ajaxErrorHandler.xhtml" />
+    
+   <h:body>
+    	<ui:insert name="body" />
+    </h:body>
+</f:view>
+
+</html>

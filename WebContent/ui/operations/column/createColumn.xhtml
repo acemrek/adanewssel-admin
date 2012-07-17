@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+	
+	<h:form id="createColumnForm" rendered="#{columnOperationsBean.selectedOperation == 'createColumn'}">
+		<ui:param name="column" value="#{columnOperationsBean.willBeCreatedColumn}" />
+		<h:panelGrid columns="3">			
+			<h:outputText value="#{msg['column.columnist']}" />
+			<h:panelGrid columns="2">
+				<h:panelGrid columns="1" id="selectedColumnistPhoto">
+		       		<p:outputPanel rendered="#{column.columnist != null}">
+		       			<cc:image photo="#{column.columnist.photo}" size="thumb" />
+		       		</p:outputPanel>
+	       		</h:panelGrid>
+				<p:selectOneMenu id="columnist" value="#{column.columnist}" converter="#{columnistConverter}" effect="fade" var="c" required="true" panelStyle="height:300px;" >  
+	        		<f:selectItem itemLabel="" itemValue="" />  
+	        		<f:selectItems value="#{columnOperationsBean.allColumnists}" var="columnist" itemLabel="#{columnist.firstname} #{columnist.lastname}" itemValue="#{columnist}"/>  
+					<p:column> 
+						<cc:image photo="#{c.photo}" size="thumb" /> 
+	           		</p:column>  
+					<p:column>  
+	           			<h:outputText value="#{c.firstname} #{c.lastname}" />      
+	       			</p:column>  
+	       			<p:ajax update="selectedColumnistPhoto" />  
+		      	</p:selectOneMenu>
+			</h:panelGrid>
+			
+			<p:message for="columnist" />
+			
+			<h:outputText value="#{msg['general.title']}" />
+			<p:inputText id="columnHeader" value="#{column.title}" required="true" />
+			<p:message for="columnHeader" />
+			
+			<h:outputText value="#{msg['general.text']}" />
+			<p:editor id="htmlText" value="#{column.htmlText}" required="true" />
+			<p:message for="htmlText" />
+			
+			<h:outputText value="#{msg['general.publishStatus']}" />
+			<p:selectOneButton id="publishStatus" value="#{column.publishStatus}" required="true">
+				<f:selectItem itemLabel="#{msg['general.publishStatus.onTheAir']}" itemValue="ON_THE_AIR" />
+				<f:selectItem itemLabel="#{msg['general.publishStatus.offTheAir']}" itemValue="OFF_THE_AIR" />
+			</p:selectOneButton>
+			<p:message for="publishStatus" />
+			
+			<p:commandButton value="#{msg['column.createNew']}" action="#{columnOperationsBean.createColumn}" process="@form" update=":operationsMenu, :columnOperationsMainPanel"/>
+		</h:panelGrid>
+	</h:form>
+	
+</html>

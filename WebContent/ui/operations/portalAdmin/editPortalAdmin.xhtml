@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="listPortalAdminsForm" rendered="#{portalAdminOperationsBean.selectedOperation == 'editPortalAdmin'}">
+		<p:panel widgetVar="portalAdminlistPanel" header="#{msg['portalAdmin.list.tableHeader']}" > 
+		 	<p:dataTable var="admin" value="#{portalAdminOperationsBean.allPortalAdmins}"> 
+		 		
+		 		<ui:include src="../paginator.xhtml" />
+		 		
+				<p:column headerText="#{msg['general.firstname']}">  
+	            	<h:outputText value="#{admin.firstname}" />  
+	  			</p:column> 
+	  			
+	        	<p:column headerText="#{msg['general.lastname']}">  
+	            	<h:outputText value="#{admin.lastname}" />  
+	  			</p:column>
+	
+	        	<p:column headerText="#{msg['general.username']}">  
+	            	<h:outputText value="#{admin.username}" />  
+	  			</p:column> 
+	  			
+	        	<p:column headerText="#{msg['general.email']}">  
+	            	<h:outputText value="#{admin.email}" />  
+	  			</p:column>   
+
+	        	<p:column headerText="#{msg['portalAdmin.sites']}">  
+		  			<p:dataList value="#{admin.sites}" var="site" itemType="disc">  
+	    				<h:outputText value="#{site.domainName}" />  
+					</p:dataList> 
+	  			</p:column>   
+	  			
+	  			<p:column headerText="#{msg['general.edit']}">
+		      		<p:commandButton icon="ui-icon-wrench" action="#{portalAdminOperationsBean.selectWillBeEditedPortalAdmin(admin.id)}"  update=":editPortalAdminPanel" />
+		      	</p:column>
+		      	
+		      	<p:column headerText="#{msg['general.delete']}">
+		      		<p:commandButton icon="ui-icon-trash" action="#{portalAdminOperationsBean.selectWillBeDeletedPortalAdmin(admin)}" update=":confirmationDeletePortalAdminForm" oncomplete="confirmationDeletePortalAdmin.show();"/>
+		      	</p:column>
+		 	</p:dataTable> 
+	 	</p:panel>
+	</h:form>	
+	
+	<p:outputPanel id="editPortalAdminPanel">
+		<ui:param name="portalAdmin" value="#{portalAdminOperationsBean.willBeEditedPortalAdmin}" />
+
+		<br />
+		<br />
+		
+		<p:panel header="#{viewUtils.getParametrizedMsg('portalAdmin.edit.header', portalAdmin.firstname, portalAdmin.lastname)}" rendered="#{portalAdminOperationsBean.selectedOperation == 'editPortalAdmin' and portalAdminOperationsBean.willBeEditedPortalAdmin != null}" > 
+			<p:tabView id="editPortalAdminTabs">
+				<p:tab id="generalPortalAdminInformationTab" title="#{msg['portalAdmin.generalInformation']}">
+					<h:form id="editPortalAdminGeneralInformationForm" binding="#{portalAdminOperationsBean.editPortalAdminForm}">
+			           	<h:panelGrid columns="3">			
+							<p:outputLabel for="firstname" value="#{msg['general.firstname']}:" />
+							<p:inputText id="firstname" value="#{portalAdmin.firstname}" required="true" />
+							<p:message for="firstname" />
+								
+							<p:outputLabel for="lastname" value="#{msg['general.lastname']}:" />
+							<p:inputText id="lastname" value="#{portalAdmin.lastname}" required="true" />
+							<p:message for="lastname" />
+							
+							<p:outputLabel for="username" value="#{msg['general.username']}:" />
+							<p:inputText id="username" value="#{portalAdmin.username}" required="true" />
+							<p:message for="username" />
+							
+							<p:outputLabel for="email" value="#{msg['general.email']}:" />
+							<p:inputText id="email" value="#{portalAdmin.email}" required="true" validatorMessage="#{err['email.wrongPattern']}">
+								<f:validateRegex pattern="#{RegexConst.EMAIL_PATTERN}" />
+							</p:inputText>
+							<p:message for="email" />
+							
+							<h:outputText value="" />
+							<p:commandButton value="#{msg['general.update']}" action="#{portalAdminOperationsBean.editPortalAdmin}" update=":editPortalAdminPanel, :listPortalAdminsForm" />
+						</h:panelGrid>
+					</h:form>
+				</p:tab>
+				<p:tab id="portalAdminAdminedSites" title="#{msg['portalAdmin.sites']}">
+					<h:form id="editPortalAdminSitesForm" >
+						<p:dataTable var="site" value="#{portalAdmin.sites}" > 
+							<p:column headerText="#{msg['site.domainName']}">  
+		            			<h:outputText value="#{site.domainName}" />  
+		  					</p:column>
+							<p:column headerText="#{msg['portalAdmin.removeSite']}">
+				            	<p:commandButton icon="ui-icon-trash" action="#{portalAdminOperationsBean.removeSiteFromPortalAdmin(portalAdmin, site)}" update="@form, :listPortalAdminsForm"/>
+		  					</p:column>
+						</p:dataTable>
+					</h:form>
+				</p:tab>
+			</p:tabView>
+		</p:panel>
+	</p:outputPanel>
+	
+</html>

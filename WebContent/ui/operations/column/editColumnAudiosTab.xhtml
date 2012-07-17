@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+
+	<h:form id="columnsAudioForm">
+		<h:panelGrid columns="4">
+			<p:outputLabel value="#{msg['audio.id']}" for="audioId" />
+			<p:inputText id="audioId" value="#{columnOperationsBean.audioId}" required="true" styleClass="idKeyFilter" />
+			<pe:keyFilter for="audioId" mask="num" />
+			<p:message for="audioId" />
+	
+			<p:commandButton id="addAudio" icon="ui-icon-plus" value="#{msg['general.add']}" action="#{columnOperationsBean.queryForAudio}" update="@form" />
+			<p:message for="addAudio" />
+		</h:panelGrid>
+	
+		<br />
+		<br />
+	
+		<h:panelGrid columns="1">
+			<p:dataTable var="audio" value="#{columnOperationsBean.willBeEditedColumn.audiosAsList}">
+				<p:column>
+					<h:outputText value="#{audio.title}" />
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromAudios(audio)}" update="@form" />
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</h:form>
+
+</html>

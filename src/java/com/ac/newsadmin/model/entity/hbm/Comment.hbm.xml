@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ac.newsadmin.model.entity">
+	<class name="Comment" table="COMMENTS">
+
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="content" type="string" column="CONTENT" />
+		<property name="commentDate" type="timestamp" column="COMMENT_DATE" />
+		<property name="approved" type="boolean" column="APPROVED" />
+	</class>
+</hibernate-mapping>

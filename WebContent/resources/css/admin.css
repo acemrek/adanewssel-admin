@@ -1,0 +1,256 @@
+html {
+    overflow: auto !important;
+}
+
+body {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+    font-size: 12px;
+    padding: 0 !important;
+    margin: 0;
+}
+
+input,
+select,
+textarea,
+button,
+.ui-widget,
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+    font-size: 12px !important;
+}
+
+.ui-widget-header,
+.ui-widget-content,
+.ui-widget-header .ui-widget-header,
+.ui-widget-content .ui-widget-content {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+    font-size: 12px !important;
+}
+
+.ui-menu .ui-menuitem-link {
+    width: 115%;
+}
+
+table .formColumn1 {
+    padding-right: 10px;
+    text-align: right;
+}
+
+table .formColumn2 input {
+    width: 200px;
+}
+
+table .formColumn input {
+    width: 250px;
+}
+
+.radioButtons,
+.radioButtons td {
+    white-space: nowrap;
+    border: none !important;
+}
+
+.radioLineDirection td:first-child {
+    padding-right: 15px;
+}
+
+.radioButtons input {
+    margin: 2px 0 2px 0;
+}
+
+.radioButtons input,
+.radioButtons label {
+    vertical-align: middle;
+}
+
+.radioButtons label {
+    margin-left: 4px;
+}
+
+.checkBoxes {
+    white-space: nowrap;
+}
+
+.checkBoxes input,
+.checkBoxes label {
+    vertical-align: middle;
+}
+
+.checkBoxes label {
+    padding-bottom: 2px;
+}
+
+table .columnTop {
+    vertical-align: top;
+}
+
+.ui-tree .ui-tree-node {
+    cursor: pointer;
+}
+
+.ui-tooltip {
+    max-width: 400px;
+}
+.layout-inner-north {
+    color: #000000;
+    background-color: #FFFFFF;
+    border: none;
+}
+
+.logo {
+    position: relative;
+    bottom: 4px;
+    left: 6px;
+    float: left;
+}
+
+.opMenu {
+    border-width: 0;
+    background: none;
+    white-space: nowrap;
+}
+
+.opMenu .ui-menuitem-link{
+    padding: 0.2em;
+}
+
+.opMenu .ui-separator {
+    margin: 5px 0;
+    width: 120%;
+}
+
+.opMenu .ui-menuitem {
+    width: auto !important;
+}
+
+.opMenu .ui-menuitem-text {
+    padding-left: 3px;
+}
+
+
+.smallNav {
+    text-align: right;
+    float: right;
+    margin-right: 10px;
+    margin-top: -12px;
+    *margin-top: -43px; /* shows in IE7 and below */
+}
+
+.smallNav td {
+    font-size: 11px;
+}
+
+.smallNav .smallNavImg {
+    color: #D61F27 !important;
+    font-weight: bold;
+    border: none;
+    font-size: 10px;
+    padding-bottom: 5px;
+    padding-right: 4px;
+    padding-top: 4px;
+}
+
+.smallNav .smallNavText {
+    color: #4F4F4F !important;
+    font-size: 11px;
+    vertical-align: middle;
+    padding-right: 4px;
+}
+
+.smallNav .smallNavText a {
+    color: #4F4F4F !important;
+    text-decoration: none;
+    border-bottom: dotted 1px #4F4F4F !important;
+}
+
+.smallNav .smallNavText a:hover {
+    color: blue !important;
+    border-bottom: dotted 1px blue !important;
+}
+
+.developersCol1 {
+    padding: 2px 10px 2px 5px;
+    text-align: right;
+}
+
+.developersCol2 {
+    padding: 2px;
+    text-align: left;
+}
+
+.layout-tabbuttons {
+    left: auto !important;
+}
+
+
+.ui-orderlist .ui-orderlist-list{
+	width: auto !important;
+}
+
+.pe-layout-tabbuttons{
+	margin-left: 212px !important;
+}
+.levelTitle {
+    padding: 4px 6px 4px 6px;
+    margin-right: 3px;
+}
+
+.ui-icon-websites {   
+    width: 16px;   
+    height: 16px;   
+    background-image: url("#{resource['images/icons/websites.png']}") !important;   
+}
+
+.ui-icon-portalAdmin{
+    width: 16px;   
+    height: 16px;   
+    background-image: url("#{resource['images/icons/portalAdmin.png']}") !important;   
+}
+
+.ui-icon-writer {   
+    width: 16px;   
+    height: 16px;   
+    background-image: url("#{resource['images/icons/writer.png']}") !important;   
+}
+
+.ui-icon-column {   
+    width: 16px;   
+    height: 16px;   
+    background-image: url("#{resource['images/icons/column.png']}") !important;   
+}
+
+.ui-icon-photo {   
+    width: 16px;   
+    height: 16px;   
+    background-image: url("#{resource['images/icons/photo.png']}") !important;   
+}
+
+.ui-icon-site-video {   
+    width: 16px;   
+    height: 16px;   
+    background-image: url("#{resource['images/icons/video.png']}") !important;
+}
+
+.ui-icon-audio {   
+    width: 16px;   
+    height: 16px;   
+    background-image: url("#{resource['images/icons/audio.png']}") !important;
+}
+
+.ui-icon-news {   
+    width: 16px;   
+    height: 16px;   
+    background-image: url("#{resource['images/icons/news.png']}") !important;   
+}
+
+.ui-orderlist-list{
+	height:600px !important;
+}
+
+li.ui-orderlist-item.ui-state-hover{
+	background: none !important;
+	color: black !important;
+}

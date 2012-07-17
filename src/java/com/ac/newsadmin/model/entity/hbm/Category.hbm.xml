@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ac.newsadmin.model.entity">
+	<class name="Category" table="CATEGORY">
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+	
+		<property name="name" type="string" column="NAME" />
+		<property name="i18nKey" type="string" column="I18N_KEY" />
+		
+		<many-to-one name="site" class="com.ac.newsadmin.model.entity.Site" column="SITE_ID"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+
+	<h:form id="columnsPhotoGaleryForm">
+		<h:panelGrid columns="4">
+			<p:outputLabel value="#{msg['photoGalery.id']}" for="photoGaleryId" />
+			<p:inputText id="photoGaleryId" value="#{columnOperationsBean.photoGaleryId}" required="true" styleClass="idKeyFilter" />
+			<pe:keyFilter for="photoGaleryId" mask="num" />
+			<p:message for="photoGaleryId" />
+	
+			<p:commandButton id="addPhotoGalery" icon="ui-icon-plus" value="#{msg['general.add']}" action="#{columnOperationsBean.queryForPhotoGalery}" update="@form" />
+			<p:message for="addPhotoGalery" />
+		</h:panelGrid>
+	
+		<br />
+		<br />
+	
+		<h:panelGrid columns="1">
+			<p:dataTable var="photoGalery" value="#{columnOperationsBean.willBeEditedColumn.photoGaleriesAsList}">
+				<p:column>
+					<cc:image photo="#{photoGalery.coverPhoto.photo}" size="thumb" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{photoGalery.title}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{photoGalery.numberOfPhotos}" />
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromPhotoGaleries(photoGalery)}" update="@form" />
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</h:form>
+
+</html>

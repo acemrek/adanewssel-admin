@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<composite:interface>
+		<composite:attribute name="tool" required="true" type="com.ac.newsadmin.ui.tools.photoUpload.PhotoUploadTool" />
+		<composite:attribute name="panelHeader" required="false" type="java.lang.String" />
+		<composite:attribute name="updateComponentSelectors" required="false" type="java.lang.String" />
+		<composite:attribute name="showReUpload" required="false" type="boolean" default="false"/>
+		<composite:attribute name="displayed" required="false" type="boolean" default="true"/>
+	</composite:interface>
+
+	<composite:implementation>
+		
+		<h:panelGroup layout="block" rendered="#{cc.attrs.displayed and !cc.attrs.tool.completedSuccessfully}">
+			<h:panelGrid columns="2" rendered="#{fn:length(cc.attrs.tool.possibleAspectRatios) > 1}">
+				<h:outputText value="#{msg['photoUpload.selectAspectRatio']}" />
+				<h:panelGrid columns="3">
+					<p:selectOneRadio id="aspectRatioSelection" value="#{cc.attrs.tool.selectedAspectRatio}" layout="custom" >  
+						<f:selectItems value="#{cc.attrs.tool.possibleAspectRatios}" var="ratio" itemLabel="#{ratio.name}" itemValue="#{ratio}"/>  
+	    				<p:ajax update="@form"/>
+	    			</p:selectOneRadio>
+	    			
+	    			<table>  
+  						<tr> 
+			    			<ui:repeat var="ratio" value="#{cc.attrs.tool.possibleAspectRatios}" varStatus="status">
+								<td>
+									<h:panelGrid columns="1">
+				    					<p:graphicImage value="/resources/images/#{ratio.imageName}.png" />
+				    					<h:outputLabel value="#{ratio.name}" />
+				    					<p:radioButton for="#{cc.attrs.id}:aspectRatioSelection" itemIndex="#{status.index}"/>
+				    				</h:panelGrid>
+				    			</td>  						
+							</ui:repeat>
+						</tr>
+					</table>
+				</h:panelGrid>
+    		</h:panelGrid>
+			
+			<p:fileUpload label="#{msg['general.selectFile']}" fileUploadListener="#{cc.attrs.tool.handlePhotoUpload}" mode="advanced"  auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpe?g)$/" update="@form" />
+			
+			<br />
+			
+			<h:panelGrid columns="1" rendered="#{cc.attrs.tool.tempImgUrl != null}">
+				<h:outputText value="#{msg['photoUpload.cropImage']}"/> 
+				<p:imageCropper id="photoUploadCropper" value="#{cc.attrs.tool.croppedImage}"  image="#{cc.attrs.tool.tempImgUrl}" aspectRatio="#{cc.attrs.tool.selectedAspectRatio != null ? cc.attrs.tool.selectedAspectRatio.value : ''}"
+								initialCoords="0,0,#{cc.attrs.tool.selectedAspectRatio != null ? cc.attrs.tool.selectedAspectRatio.cropAreaDefaultWidth : 100}, #{cc.attrs.tool.selectedAspectRatio != null ? cc.attrs.tool.selectedAspectRatio.cropAreaDefaultHeight : 50}" />  			
+			</h:panelGrid>
+			
+			<br />
+						
+			<p:commandButton value="#{msg['photoUpload.cropImageAndSubmit']}" action="#{cc.attrs.tool.crop}" update="@form #{cc.attrs.updateComponentSelectors}" rendered="#{cc.attrs.tool.tempImgUrl != null}"/>
+		</h:panelGroup>
+		
+		<h:panelGroup layout="block" rendered="#{cc.attrs.displayed and cc.attrs.tool.completedSuccessfully}">
+			<h:panelGrid columns="1" >
+				<h:outputText value="#{msg['photoUpload.success']}" />
+				<p:commandButton value="#{msg['photoUpload.reuploadImage']}" action="#{cc.attrs.tool.refreshTool}" update="@form" rendered="#{cc.attrs.showReUpload}"/>
+			</h:panelGrid>
+		</h:panelGroup>
+			
+	</composite:implementation>
+	
+</html>

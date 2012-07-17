@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ac.newsadmin.model.entity">
+	<class name="Photo" table="PHOTO">
+
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="originalPath" type="string" column="ORG" />
+		<property name="thumbnailPath" type="string" column="THUMB" />
+		<property name="smallPath" type="string" column="SMALL" />
+		<property name="mediumPath" type="string" column="MEDIUM" />
+		<property name="largePath" type="string" column="LARGE" />
+		
+	</class>
+</hibernate-mapping>

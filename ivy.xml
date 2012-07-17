@@ -1,0 +1,78 @@
+<ivy-module version="2.0">
+    <info organisation="com.ac" module="adanewssel-admin"/>
+    
+    <configurations>
+        <conf name="webinfBinaries" description="binary jars"/>
+        <conf name="compileBinaries" description="binary jars"/>
+        <conf name="sources"  description="Source jars"/>
+    </configurations>
+
+    <dependencies>
+        <dependency org="org.springframework" name="spring-core" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-expression" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-beans" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-aop" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-context" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-context-support" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-tx" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-jdbc" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-orm" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-oxm" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework" name="spring-web" rev="${org.springframework.version}" conf="webinfBinaries->default" />
+        
+        <dependency org="org.aopalliance" name="com.springsource.org.aopalliance" rev="1.0.0" conf="webinfBinaries->default" />
+        
+        <dependency org="org.springframework.security" name="spring-security-core" rev="${org.springframework.security.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework.security" name="spring-security-web" rev="${org.springframework.security.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework.security" name="spring-security-config" rev="${org.springframework.security.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework.security" name="spring-security-acl" rev="${org.springframework.security.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework.security" name="spring-security-taglibs" rev="${org.springframework.security.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework.security" name="spring-security-crypto" rev="${org.springframework.security.version}" conf="webinfBinaries->default" />
+        <dependency org="org.springframework.security" name="spring-security-aspects" rev="${org.springframework.security.version}" conf="webinfBinaries->default" />
+        
+        <dependency org="org.glassfish" name="javax.faces" rev="2.1.7" conf="webinfBinaries->default" />
+        <dependency org="org.glassfish.web" name="el-impl" rev="2.2" conf="webinfBinaries->default" />
+        <dependency org="org.primefaces" name="primefaces" rev="3.4-SNAPSHOT" conf="webinfBinaries->default" />
+        <dependency org="org.primefaces.themes" name="home" rev="1.0.5" conf="webinfBinaries->default" />
+        <dependency org="org.primefaces.extensions" name="primefaces-extensions" rev="0.5.1" conf="webinfBinaries->default" />
+        <dependency org="org.primefaces.extensions" name="resources-ckeditor" rev="0.5.1" conf="webinfBinaries->default" />
+        
+        <dependency org="com.amazonaws" name="aws-java-sdk" rev="1.0.002" conf="webinfBinaries->default" />
+        <dependency org="net.java.dev.jets3t" name="jets3t" rev="0.9.0" conf="webinfBinaries->default">
+        	<exclude org="org.apache.httpcomponents" />
+        </dependency>
+        
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.20" conf="webinfBinaries->default" />
+        
+        <dependency org="org.hibernate" name="hibernate-core" rev="3.6.10.Final" conf="webinfBinaries->default">
+        	<exclude org="commons-collections" name="commons-collections"/>
+        </dependency>
+        
+        <dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.3" conf="webinfBinaries->default" />
+        <dependency org="commons-beanutils" name="commons-beanutils-core" rev="1.8.3" conf="webinfBinaries->default" />
+        <dependency org="commons-beanutils" name="commons-beanutils-bean-collections" rev="1.8.3" conf="webinfBinaries->default" />
+        <dependency org="commons-codec" name="commons-codec" rev="1.6" conf="webinfBinaries->default" />
+        <dependency org="commons-dbcp" name="commons-dbcp" rev="1.4" conf="webinfBinaries->default" />
+        <dependency org="commons-fileupload" name="commons-fileupload" rev="1.2.2" conf="webinfBinaries->default" />
+        <dependency org="commons-io" name="commons-io" rev="2.3" conf="webinfBinaries->default" />
+        <dependency org="commons-collections" name="commons-collections" rev="3.2.1" conf="webinfBinaries->default" />
+        
+        <dependency org="javax.inject" name="javax.inject" rev="1" conf="webinfBinaries->default" />
+        <dependency org="com.jamesmurty.utils" name="java-xmlbuilder" rev="0.4" conf="webinfBinaries->default" />
+        <dependency org="javax.servlet" name="jstl" rev="1.2" conf="webinfBinaries->default" />
+        <dependency org="cglib" name="cglib-nodep" rev="2.2.2" conf="webinfBinaries->default" />
+        <dependency org="javassist" name="javassist" rev="3.12.1.GA" conf="webinfBinaries->default" />
+        <dependency org="com.google.code.gson" name="gson" rev="2.2.1" conf="webinfBinaries->default" />
+        <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.2" conf="webinfBinaries->default" />
+        <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.1.3" conf="webinfBinaries->default" />
+        <dependency org="log4j" name="log4j" rev="1.2.16" conf="webinfBinaries->default" />
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.1" conf="webinfBinaries->default" />
+        <dependency org="org.imgscalr" name="imgscalr-lib" rev="4.2" conf="webinfBinaries->default" />
+        
+        <dependency org="javax.servlet" name="servlet-api" rev="2.5" conf="compileBinaries->default"/>
+        <dependency org="org.apache.tomcat" name="annotations-api" rev="6.0.18" conf="compileBinaries->default"/>
+        
+        <exclude org="aopalliance" conf="*" />
+    </dependencies>
+
+</ivy-module>

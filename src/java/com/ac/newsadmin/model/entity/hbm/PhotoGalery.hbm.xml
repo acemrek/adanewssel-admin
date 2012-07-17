@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ac.newsadmin.model.entity">
+	<class name="PhotoGalery" table="PHOTO_GALERY">
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="title" type="string" column="TITLE" />
+		<property name="description" type="text" column="DESCRIPTION" />
+		
+		<property name="createDate" type="timestamp" column="CREATE_DATE" />
+		<property name="publishStatus" type="PublishStatus" column="PUBLISH_STATUS" />
+		
+		<bag name="photos" inverse="true" order-by="LIST_ORDER">
+        	<key column="PHOTO_GALERY_ID"/>
+        	<one-to-many class="com.ac.newsadmin.model.entity.GaleryPhoto"/>
+    	</bag>
+		
+		<many-to-one name="category" class="com.ac.newsadmin.model.entity.Category" column="CATEGORY_ID"  />
+		<many-to-one name="site" class="com.ac.newsadmin.model.entity.Site" column="SITE_ID" />
+
+	</class>
+</hibernate-mapping>

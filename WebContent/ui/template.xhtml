@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:p="http://primefaces.org/ui">
+      
+
+<ui:composition template="/ui/masterTemplate.xhtml">
+	<ui:define name="css">
+		<h:outputStylesheet library="css" name="admin.css"/>
+		<h:outputStylesheet library="css" name="shared.css"/>
+		<h:outputStylesheet library="css" name="video-js.min.css"/>
+		<h:outputScript library="js" name="shared.js" />
+		<h:outputScript library="js" name="video.min.js" />
+		<h:outputScript library="js" name="audio.min.js" />
+    </ui:define>
+</ui:composition>
+
+</html>

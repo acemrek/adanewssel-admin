@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="../operationsTemplate.xhtml">
+		
+		<ui:define name="menuHeader">
+			<h:outputText value="#{msg['newsOperations.header']}" />
+		</ui:define>
+		
+		<ui:define name="menu">
+			<h:form>
+				<p:menu id="newsMenu" styleClass="opMenu">
+					
+					<p:menuitem value="#{msg['newsOperations.createNewNews']}" styleClass="#{newsOperationsBean.getCssClass('createNewNews')}" 
+								action="#{newsOperationsBean.showAddNewsForm}" update="#{contentsToUpdateAfterOpChange}" />
+								
+					<p:menuitem value="#{msg['newsOperations.editNews']}" styleClass="#{newsOperationsBean.getCssClass('editNews')}"  
+								action="#{newsOperationsBean.showEditNewsForm}" update="#{contentsToUpdateAfterOpChange}" />
+
+					<p:menuitem value="#{msg['newsOperations.manageHeadlines']}" styleClass="#{newsOperationsBean.getCssClass('manageHeadlines')}"  
+								action="#{newsOperationsBean.showManageHeadlinesForm}" update="#{contentsToUpdateAfterOpChange}" />					
+				
+				</p:menu>
+			</h:form>		
+		</ui:define>
+		
+		<ui:define name="contentHeader">
+			<h:outputText value="#{newsOperationsBean.getOperationHeader()}" />
+		</ui:define>
+		
+		<ui:define name="content">
+			<p:outputPanel id="newsOperationsMainPanel">
+				<ui:include src="createNewNews.xhtml" />
+				<ui:include src="editNews.xhtml" />
+				<ui:include src="manageHeadlines.xhtml" />
+			</p:outputPanel>			
+		</ui:define>
+		
+	</ui:composition>
+
+</html>

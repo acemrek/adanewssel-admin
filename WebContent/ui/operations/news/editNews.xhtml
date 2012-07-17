@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+
+	<p:outputPanel id="editNewsPanel" rendered="#{newsOperationsBean.selectedOperation == 'editNews'}">
+
+		<p:dataTable var="news" value="#{newsOperationsBean.allNews}" > 
+        	<p:column>  
+            	<f:facet name="header">
+            		<h:outputText value="#{msg['general.createDate']}" />
+            	</f:facet>  
+				<h:outputText value="#{news.createDate}">
+					 <f:convertDateTime pattern="#{Const.DATE_END_TIME_FORMAT}" />
+				</h:outputText>
+        	</p:column>
+	 		<p:column>  
+            	<f:facet name="header">  
+            		<h:outputText value="#{msg['general.title']}" />  
+            	</f:facet>  
+  
+            	<h:outputText value="#{news.title}" />  
+  			</p:column>
+  			<p:column>
+  				<f:facet name="header">  
+            		<h:outputText value="#{msg['general.publishStatus']}" />  
+            	</f:facet>
+            	<h:outputText value="#{msg['general.publishStatus.offTheAir']}" rendered="#{news.publishStatus.value == '0'}" />
+            	<h:outputText value="#{msg['general.publishStatus.onTheAir']}" rendered="#{news.publishStatus.value == '1'}" />
+  			</p:column>
+  			
+  			<p:column>
+      			<p:commandButton icon="ui-icon-wrench" action="#{newsOperationsBean.selectWillBeEditedNews(news)}"  update=":willBeEditedNewsPanel" />
+      		</p:column>
+      		
+        	<p:column>
+				<p:commandButton icon="ui-icon-trash" action="#{newsOperationsBean.selectWillBeDeletedNews(news)}" update=":confirmationDeleteNewsForm" oncomplete="confirmationDeleteNews.show();"/>
+        	</p:column>
+		</p:dataTable>
+		
+		<p:outputPanel id="willBeEditedNewsPanel" rendered="#{newsOperationsBean.willBeEditedNews != null}">
+			<ui:param name="news" value="#{newsOperationsBean.willBeEditedNews}" />
+			<h:form>
+				<h:panelGrid columns="3">
+					<h:outputText value="#{msg['general.title']}" />
+					<p:inputText id="title" value="#{news.title}" required="true" requiredMessage="#{err['general.required']}" />
+					<p:message for="title" />
+					
+					<h:outputText value="#{msg['news.content']}" />
+					<pe:ckEditor id="newsContent" value="#{news.content}">
+						<f:validateRequired />
+					</pe:ckEditor> 
+					<p:message for="newsContent" />				
+			
+					<h:outputText value="#{msg['general.publishStatus']}" />
+					<p:selectOneButton id="publishStatus" value="#{news.publishStatus}" required="true" requiredMessage="#{err['general.required']}" >
+						<f:selectItem itemLabel="#{msg['general.publishStatus.onTheAir']}" itemValue="ON_THE_AIR" />
+						<f:selectItem itemLabel="#{msg['general.publishStatus.offTheAir']}" itemValue="OFF_THE_AIR" />
+					</p:selectOneButton>
+					<p:message for="publishStatus" />
+			
+					<h:outputText value="#{msg['general.category']}" />
+					<p:selectOneMenu id="category" value="#{news.category}" converter="#{categoryConverter}" effect="fade" required="true" requiredMessage="#{err['general.required']}">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{siteCategoriesHelper.siteCategories}" var="cat" itemLabel="#{viewUtils.getParametrizedMsg(cat.i18nKey)}" itemValue="#{cat}" />
+					</p:selectOneMenu>
+					<p:message for="category" />
+					
+					<p:commandButton value="#{msg['news.update']}" action="#{newsOperationsBean.editNews}" process="@form" update=":operationsMenu, :newsOperationsMainPanel"/>
+				</h:panelGrid>
+			</h:form>	
+		</p:outputPanel>
+				
+	</p:outputPanel>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+	
+	<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();"/>
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false">  
+	    <p:graphicImage value="/resources/images/ajaxloadingbar.gif" />  
+	</p:dialog> 
+
+	<h:form id="confirmationDeleteSiteForm">
+		<p:confirmDialog header="#{msg['general.attention']}" message="#{viewUtils.getParametrizedMsg('general.deleteObjectMsg', siteOperationsBean.willBeDeletedSite.domainName)}" rendered="#{siteOperationsBean.willBeDeletedSite != null}" 
+						 severity="alert" widgetVar="confirmationDeleteSite" >
+			<p:commandButton id="decline" value="#{msg['general.cancel']}" onclick="confirmationDeleteSite.hide()" type="button" />
+			<p:commandButton id="accept" value="#{msg['general.accept']}" actionListener="#{siteOperationsBean.deleteSite}" oncomplete="confirmationDeleteSite.hide()"  update=":siteOperationsMainPanel"/>
+		</p:confirmDialog>			
+	</h:form>	
+
+	<h:form id="confirmationDeletePortalAdminForm">
+		<p:confirmDialog header="#{msg['general.attention']}" message="#{viewUtils.getParametrizedMsg('general.deleteObjectMsg', portalAdminOperationsBean.willBeDeletedPortalAdmin.username)}" rendered="#{portalAdminOperationsBean.willBeDeletedPortalAdmin != null}" 
+						 severity="alert" widgetVar="confirmationDeletePortalAdmin" >
+			<p:commandButton id="decline" value="#{msg['general.cancel']}" onclick="confirmationDeletePortalAdmin.hide()" type="button" />
+			<p:commandButton id="accept" value="#{msg['general.accept']}" actionListener="#{portalAdminOperationsBean.deletePortalAdmin}" oncomplete="confirmationDeletePortalAdmin.hide()" update=":portalAdminOperationsMainPanel"/>
+		</p:confirmDialog>			
+	</h:form>
+	
+	<h:form id="confirmationDeleteColumnistForm">
+		<p:confirmDialog header="#{msg['general.attention']}" message="#{viewUtils.getParametrizedMsg('general.deleteObjectMsg', columnistOperationsBean.willBeDeletedColumnist.username)}" rendered="#{columnistOperationsBean.willBeDeletedColumnist != null}" 
+						 severity="alert" widgetVar="confirmationDeleteColumnist" >
+			<h:panelGrid columns="2">
+				<cc:image photo="#{columnistOperationsBean.willBeDeletedColumnist.photo}" size="thumb" />
+				<h:panelGrid columns="2">
+					<p:commandButton id="decline" value="#{msg['general.cancel']}" onclick="confirmationDeleteColumnist.hide()" type="button" />
+					<p:commandButton id="accept" value="#{msg['general.accept']}" actionListener="#{columnistOperationsBean.deleteColumnist}" 
+									 oncomplete="confirmationDeleteColumnist.hide()" update=":columnistOperationsMainPanel"/>
+				</h:panelGrid>
+			</h:panelGrid>
+		</p:confirmDialog>			
+	</h:form>
+	
+	<!-- 
+
+ 	-->
+ 
+	<h:form id="confirmationDeleteGaleryPhotoForm">
+		<p:confirmDialog rendered="#{photoGaleryOperationsBean.willBeDeletedGaleryPhoto != null}" 
+						 message="#{msg['galeryPhoto.deletePhoto']}" header="#{msg['general.attention']}" severity="alert" widgetVar="confirmationDeleteGaleryPhoto" >
+			<h:panelGrid columns="2">
+				<cc:image photo="#{photoGaleryOperationsBean.willBeDeletedGaleryPhoto.photo}" size="thumb" />
+				<h:panelGrid columns="2">
+					<p:commandButton id="decline" value="#{msg['general.cancel']}" onclick="confirmationDeleteGaleryPhoto.hide()" type="button" />
+					<p:commandButton id="accept" value="#{msg['general.accept']}" actionListener="#{photoGaleryOperationsBean.deleteGaleryPhoto}" 
+									 oncomplete="confirmationDeleteGaleryPhoto.hide()" update=":editPhotoGaleryTabs:galeryPhotosListForm"/>
+				</h:panelGrid>
+			</h:panelGrid>
+		</p:confirmDialog>			
+	</h:form>
+	
+	<h:form id="confirmationDeletePhotoGaleryForm">
+		<p:confirmDialog rendered="#{photoGaleryOperationsBean.willBeDeletedPhotoGalery != null}" message="#{viewUtils.getParametrizedMsg('general.deleteObjectMsg', photoGaleryOperationsBean.willBeDeletedPhotoGalery.title)}" 			    			 
+						 header="#{msg['general.attention']}" severity="alert" widgetVar="confirmationDeletePhotoGalery" >
+			<p:commandButton id="decline" value="#{msg['general.cancel']}" onclick="confirmationDeletePhotoGalery.hide()" type="button" />
+			<p:commandButton id="accept" value="#{msg['general.accept']}" actionListener="#{photoGaleryOperationsBean.willBeDeletedPhotoGalery}" 
+							 oncomplete="confirmationDeletePhotoGalery.hide()" update=":photoGaleryOperationsMainPanel"/>
+		</p:confirmDialog>
+	</h:form>
+
+	<h:form id="confirmationDeleteVideoForm">
+		<p:confirmDialog rendered="#{videoOperationsBean.willBeDeletedVideo != null}" 
+						 message="#{viewUtils.getParametrizedMsg('general.deleteObjectMsg', videoOperationsBean.willBeDeletedVideo.title)}" 			    			 
+						 header="#{msg['general.attention']}" severity="alert" widgetVar="confirmationDeleteVideo" >
+			<p:commandButton id="decline" value="#{msg['general.cancel']}" onclick="confirmationDeleteVideo.hide()" type="button" />
+			<p:commandButton id="accept" value="#{msg['general.accept']}" actionListener="#{videoOperationsBean.deleteVideo}" 
+							 oncomplete="confirmationDeleteVideo.hide()" update=":videoOperationsMainPanel"/>
+		</p:confirmDialog>
+	</h:form>
+
+	<h:form id="confirmationDeleteAudioForm">
+		<p:confirmDialog rendered="#{audioOperationsBean.willBeDeletedAudio != null}" 
+						 message="#{viewUtils.getParametrizedMsg('general.deleteObjectMsg', audioOperationsBean.willBeDeletedAudio.title)}" 			    			 
+						 header="#{msg['general.attention']}" severity="alert" widgetVar="confirmationDeleteAudio" >
+			<p:commandButton id="decline" value="#{msg['general.cancel']}" onclick="confirmationDeleteAudio.hide()" type="button" />
+			<p:commandButton id="accept" value="#{msg['general.accept']}" actionListener="#{audioOperationsBean.deleteAudio}" 
+							 oncomplete="confirmationDeleteAudio.hide()" update=":audioOperationsMainPanel"/>
+		</p:confirmDialog>
+	</h:form>
+		
+	<h:form id="confirmationDeleteNewsForm">
+		<p:confirmDialog rendered="#{newsOperationsBean.willBeDeletedNews != null}" 
+						 message="#{viewUtils.getParametrizedMsg('general.deleteObjectMsg', newsOperationsBean.willBeDeletedNews.title)}" 			    			 
+						 header="#{msg['general.attention']}" severity="alert" widgetVar="confirmationDeleteNews" >
+			<p:commandButton id="decline" value="#{msg['general.cancel']}" onclick="confirmationDeleteNews.hide()" type="button" />
+			<p:commandButton id="accept" value="#{msg['general.accept']}" actionListener="#{newsOperationsBean.deleteNews}" 
+							 oncomplete="confirmationDeleteNews.hide()" update=":newsOperationsMainPanel"/>
+		</p:confirmDialog>
+	</h:form>
+	
+	<p:outputPanel id="willBeEditGaleryPhotoPanel">
+		<h:form  binding="#{photoGaleryOperationsBean.selectedGaleryPhotoForm}" rendered="#{photoGaleryOperationsBean.willBeEditedGaleryPhoto != null}">
+			<p:dialog modal="true" widgetVar="willBeEditGaleryPhotoDlg">
+				<p:panel header="#{msg['photoGalery.galeryPhoto.edit']}">
+					<cc:image photo="#{photoGaleryOperationsBean.willBeEditedGaleryPhoto.photo}" size="thumb"/>
+					<br />
+					<h:outputText value="#{msg['general.description']}" />
+					<p:editor id="description" value="#{photoGaleryOperationsBean.willBeEditedGaleryPhoto.description}" controls="bold italic underline strikethrough" width="240" height="60"/>
+					<br />
+					<p:commandButton value="#{msg['general.update']}" action="#{photoGaleryOperationsBean.updateGaleryPhoto}" update=":willBeEditGaleryPhotoPanel, :editPhotoGaleryTabs:galeryPhotosListForm" global="false" oncomplete="willBeEditGaleryPhotoDlg.hide();"/>
+				</p:panel>
+			</p:dialog>
+		</h:form>
+	</p:outputPanel>
+		
+</html>

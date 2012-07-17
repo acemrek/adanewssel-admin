@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ac.newsadmin.model.entity">
+	<class name="Video" table="Video">
+
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="title" type="string" column="TITLE" />
+		<property name="description" type="text" column="DESCRIPTION" />
+		
+		<property name="createDate" type="timestamp" column="CREATE_DATE" />
+		<property name="publishStatus" type="PublishStatus" column="PUBLISH_STATUS" />
+		<property name="watchCount" type="int" column="WATCH_COUNT" />
+		
+		<property name="mp4Path" type="string" column="MP4" />
+		<property name="oggTheoraPath" type="string" column="OGG_THEORA" />
+		<property name="webMPath" type="string" column="WEB_M" />
+		
+		<many-to-one name="videoThumbnail" class="com.ac.newsadmin.model.entity.Photo" column="VIDEO_THUMBNAIL_ID" lazy="false" />
+
+		<many-to-one name="category" class="com.ac.newsadmin.model.entity.Category" column="CATEGORY_ID"  />
+		<many-to-one name="site" class="com.ac.newsadmin.model.entity.Site" column="SITE_ID" />
+
+	</class>
+</hibernate-mapping>

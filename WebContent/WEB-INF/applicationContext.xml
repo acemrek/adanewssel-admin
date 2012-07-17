@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/util 
+						http://www.springframework.org/schema/util/spring-util-3.0.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+						http://www.springframework.org/schema/jee 
+						http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+						http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<context:component-scan base-package="com.ac.common,com.ac.newsadmin" />
+	
+	<util:properties id="awsProperties" location="classpath:/aws.properties" />
+
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="view">
+					<bean class="com.ac.common.integration.jsf.ViewScope" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="dataSourceTarget" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/newsadmin</value>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+		<property name="targetDataSource" ref="dataSourceTarget" />
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<prop key="hibernate.show.sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+
+		<property name="mappingResources">
+			<list>
+				<value>com/ac/newsadmin/model/entity/hbm/customTypes.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/Site.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/PortalAdmin.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/Photo.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/Columnist.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/PortalPreference.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/Category.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/PhotoGalery.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/GaleryPhoto.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/Video.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/Audio.hbm.xml</value>
+				<value>com/ac/newsadmin/model/entity/hbm/WrittenContent.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<bean id="baseDao" abstract="true" class="com.ac.common.dao.BaseDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="userDao" class="com.ac.newsadmin.dao.impl.UserDaoImpl" parent="baseDao" />
+	<bean id="siteDao" class="com.ac.newsadmin.dao.impl.SiteDaoImpl" parent="baseDao" />
+	<bean id="contentDao" class="com.ac.newsadmin.dao.impl.ContentDaoImpl" parent="baseDao" />
+
+</beans>

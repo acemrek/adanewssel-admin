@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="../operationsTemplate.xhtml">
+		
+		<ui:define name="menuHeader">
+			<h:outputText value="#{msg['columnOperations.header']}" />
+		</ui:define>
+		
+		<ui:define name="menu">
+			<h:form>
+				<p:menu id="columnOpsMenu" styleClass="opMenu">
+					
+					<p:menuitem value="#{msg['columnOperations.createColumn']}" styleClass="#{columnOperationsBean.getCssClass('createColumn')}" action="#{columnOperationsBean.showCreateColumnForm}" update="#{contentsToUpdateAfterOpChange}" />
+					
+					<p:menuitem value="#{msg['columnOperations.editColumn']}" styleClass="#{columnOperationsBean.getCssClass('editColumn')}" action="#{columnOperationsBean.showEditColumnForm}" update="#{contentsToUpdateAfterOpChange}" />
+
+					<p:menuitem value="#{msg['columnOperations.orderActiveColumns']}" styleClass="#{columnOperationsBean.getCssClass('orderActiveColumns')}"  action="#{columnOperationsBean.showOrderActiveColumnsList}" update="#{contentsToUpdateAfterOpChange}" />
+																
+				</p:menu>
+			</h:form>		
+		</ui:define>
+		
+		<ui:define name="contentHeader">
+			<h:outputText value="#{columnOperationsBean.getOperationHeader()}" />
+		</ui:define>
+		
+		<ui:define name="content">
+			<p:outputPanel id="columnOperationsMainPanel">
+				<ui:include src="createColumn.xhtml" />
+				<ui:include src="editColumn.xhtml" />
+				<ui:include src="orderActiveColumns.xhtml" />
+			</p:outputPanel>			
+		</ui:define>
+		
+	</ui:composition>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/ui/template.xhtml">
+		<ui:define name="body">
+			<p:dialog id="loginPanel" header="#{msg['login.panel.header']}" width="600"  visible="true"  closable="false" maximizable="false" minimizable="false" resizable="false"  draggable="false">
+				<h:form id="loginForm">
+					<h:panelGrid columns="3">
+						<p:outputLabel  for="username" value="#{msg['general.username']}:" />  
+						<p:inputText id="username" value="#{loginBean.username}" required="true" />
+						<p:message for="username" />
+						
+						<p:outputLabel for="password" value="#{msg['general.password']}:" />
+						<p:password id="password" value="#{loginBean.password}" feedback="false" required="true" />
+						<p:message for="password" />
+						
+						<p:commandButton id="submit" value="#{msg['general.enter']}" action="#{loginBean.login}" update=":loginPanel" />
+						<p:message for="submit" />
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+		</ui:define>
+	</ui:composition>
+
+</html>

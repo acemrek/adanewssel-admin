@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ac.newsadmin.model.entity">
+	<class name="AbstractWrittenContent" table="WRITTEN_CONTENT">
+		
+		<id name="id" type="long">
+			<column name="WRITTEN_CONTENT_ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="createDate" type="timestamp" column="CREATE_DATE" />
+		<property name="publishStatus" type="PublishStatus" column="PUBLISH_STATUS" />
+		
+		<property name="title" type="string" column="TITLE" />
+		<property name="htmlText" type="text" column="HTML_TEXT" />
+		<property name="listOrder" type="int" column="LIST_ORDER" />
+		
+		<set name="photos" table="WRITTEN_CONTENT_PHOTO" lazy="false">
+			<key column="WRITTEN_CONTENT_ID" />
+			<many-to-many column="PHOTO_ID" class="com.ac.newsadmin.model.entity.Photo" />
+		</set>
+		
+		<set name="videos" table="WRITTEN_CONTENT_VIDEO" lazy="false">
+			<key column="WRITTEN_CONTENT_ID" />
+			<many-to-many column="VIDEO_ID" class="com.ac.newsadmin.model.entity.Video" />
+		</set>
+		
+		<set name="audios" table="WRITTEN_CONTENT_AUDIO" lazy="false">
+			<key column="WRITTEN_CONTENT_ID" />
+			<many-to-many column="AUDIO_ID" class="com.ac.newsadmin.model.entity.Audio" />
+		</set>
+		
+		<set name="photoGaleries" table="WRITTEN_CONTENT_PHOTO_GALERY" lazy="false">
+			<key column="WRITTEN_CONTENT_ID" />
+			<many-to-many column="PHOTO_GALERY_ID" class="com.ac.newsadmin.model.entity.PhotoGalery" />
+		</set>
+		
+		<many-to-one name="site" class="com.ac.newsadmin.model.entity.Site" column="SITE_ID" />
+		
+	    <joined-subclass name="Column" table="COLUMNS">
+	        <key column="WRITTEN_CONTENT_ID"/>
+	        <many-to-one name="columnist" class="com.ac.newsadmin.model.entity.Columnist" column="COLUMNIST_ID" />
+	    </joined-subclass>		
+	    
+		<joined-subclass name="News" table="NEWS">
+	        <key column="WRITTEN_CONTENT_ID"/>
+	        <many-to-one name="category" class="com.ac.newsadmin.model.entity.Category" column="CATEGORY_ID"  />
+	    </joined-subclass>
+		
+	</class>
+</hibernate-mapping>

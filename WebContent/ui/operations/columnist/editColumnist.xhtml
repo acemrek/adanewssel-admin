@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+
+	<h:form id="listColumnistsForm" prependId="false" rendered="#{columnistOperationsBean.selectedOperation == 'editColumnist'}">
+		<p:panel widgetVar="columnistListPanel" header="#{msg['columnist.list.tableHeader']}" > 
+		 	<p:dataTable var="columnist" value="#{columnistOperationsBean.allColumnists}">
+		 		<ui:include src="../paginator.xhtml" /> 
+		 		
+		 		<p:column>
+		 			<cc:image photo="#{columnist.photo}" size="thumb" />
+		 		</p:column>
+
+				<p:column headerText="#{msg['general.firstname']}">  
+	            	<h:outputText value="#{columnist.firstname}" />  
+	  			</p:column> 
+
+	        	<p:column headerText="#{msg['general.lastname']}">  
+	            	<h:outputText value="#{columnist.lastname}" />  
+	  			</p:column>
+	
+	        	<p:column headerText="#{msg['general.username']}">  
+	            	<h:outputText value="#{columnist.username}" />  
+	  			</p:column> 
+	  			
+	        	<p:column headerText="#{msg['general.email']}">  
+	            	<h:outputText value="#{columnist.email}" />  
+	  			</p:column>   
+	  			
+	  			<p:column headerText="#{msg['general.edit']}">
+		      		<p:commandButton icon="ui-icon-wrench" action="#{columnistOperationsBean.selectWillBeEditedColumnist(columnist.id)}" update=":editColumnistPanel" />
+		      	</p:column>
+
+				<p:column headerText="#{msg['general.delete']}">
+		      		<p:commandButton icon="ui-icon-trash" action="#{columnistOperationsBean.selectWillBeDeletedColumnist(columnist)}" update=":editColumnistPanel, :confirmationDeleteColumnistForm"  oncomplete="confirmationDeleteColumnist.show();"/>
+		      	</p:column>
+		 	</p:dataTable> 
+	 	</p:panel>
+	</h:form>	
+	
+	<p:outputPanel id="editColumnistPanel">
+		<ui:param name="columnist" value="#{columnistOperationsBean.willBeEditedColumnist}" />
+		<br />
+		<br />
+		<p:panel header="#{viewUtils.getParametrizedMsg('columnist.edit.header', columnist.firstname, columnist.lastname)}" rendered="#{columnistOperationsBean.selectedOperation == 'editColumnist' and  columnistOperationsBean.willBeEditedColumnist != null}"> 
+           	<p:tabView id="editColumnistTabs">
+           		<p:tab id="generalColumnistInformationTab" title="#{msg['columnist.generalInformation']}">
+           			<h:form id="editColumnistForm" binding="#{columnistOperationsBean.editColumnistForm}">
+			           	<h:panelGrid columns="3">
+			           		<p:outputLabel for="firstname" value="#{msg['general.firstname']}" />			
+							<p:inputText id="firstname" value="#{columnist.firstname}" required="true"/>
+							<p:message for="firstname" />
+								
+							<p:outputLabel for="lastname" value="#{msg['general.lastname']}" />
+							<p:inputText id="lastname" value="#{columnist.lastname}" required="true" />
+							<p:message for="lastname" />
+							
+							<p:outputLabel for="username" value="#{msg['general.username']}" />
+							<p:inputText id="username" value="#{columnist.username}" required="true" />
+							<p:message for="username" />
+							
+							<p:outputLabel for="email" value="#{msg['general.email']}" />
+							<p:inputText id="email" value="#{columnist.email}" required="true" />
+							<p:message for="email" />
+							
+							<p:outputLabel for="gender" value="#{msg['general.gender']}" />
+							<p:selectOneRadio id="gender" value="#{columnist.gender}" required="true" >  
+			            		<f:selectItem itemLabel="#{msg['general.gender.male']}" itemValue="MALE" />  
+			            		<f:selectItem itemLabel="#{msg['general.gender.female']}" itemValue="FEMALE" />  
+			              	</p:selectOneRadio>
+							<p:message for="gender" />
+							
+							<h:outputText value="" />
+							<p:commandButton value="#{msg['general.update']}" action="#{columnistOperationsBean.editColumnist}" process="@form" update=":editColumnistPanel, :listColumnistsForm"/>
+						</h:panelGrid>
+           			</h:form>	
+           		</p:tab>
+           		
+           		<p:tab id="columnistImageTab" title="#{msg['columnist.changeImage']}">
+           			<h:form>
+           				<h:panelGrid columns="2">
+           					<cc:image photo="#{columnist.photo}" size="thumb" />
+           					<cc:photoUpload tool="#{columnistOperationsBean.photoUploadTool}"  displayed="#{columnistOperationsBean.selectedOperation == 'editColumnist'}" updateComponentSelectors=":listColumnistsForm" />
+           				</h:panelGrid>
+						
+           			</h:form>
+           		</p:tab>
+           	</p:tabView>
+           	
+			
+		</p:panel>
+	</p:outputPanel>
+	
+</html>

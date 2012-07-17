@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+	
+	<h:form>
+		<cc:photoUpload tool="#{columnOperationsBean.photoUploadTool}" panelHeader="#{msg['column.uploadInlinePhoto']}" showReUpload="true"/>
+		<p:dataTable  var="singlePhoto" value="#{columnOperationsBean.willBeEditedColumn.photosAsList}">
+			<p:column>
+				<cc:image photo="#{singlePhoto}" size="thumb" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{viewUtils.getFullBinaryUrl(singlePhoto.mediumPath, 'id', singlePhoto.id)}" />
+			</p:column>
+			<p:column>
+				<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.deleteInlinePhoto(singlePhoto)}" update="@form" />
+			</p:column>
+		</p:dataTable >
+	</h:form>
+					
+</html>

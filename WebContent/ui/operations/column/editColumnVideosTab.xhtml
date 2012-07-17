@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/cc">
+
+	<h:form id="columnsVideoForm">
+		<h:panelGrid columns="4">
+			<p:outputLabel value="#{msg['video.id']}" for="videoId" />
+			<p:inputText id="videoId" value="#{columnOperationsBean.videoId}" required="true" styleClass="idKeyFilter" />
+			<pe:keyFilter for="videoId" mask="num" />
+			<p:message for="videoId" />
+	
+			<p:commandButton id="addVideo" icon="ui-icon-plus" value="#{msg['general.add']}" action="#{columnOperationsBean.queryForVideo}" update="@form" />
+			<p:message for="addVideo" />
+		</h:panelGrid>
+	
+		<br />
+		<br />
+	
+		<h:panelGrid columns="1">
+			<p:dataTable var="video" value="#{columnOperationsBean.willBeEditedColumn.videosAsList}">
+				<p:column>
+					<h:outputText value="#{video.title}" />
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromVideos(video)}" update="@form" />
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</h:form>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="listSitesForm" prependId="false" rendered="#{siteOperationsBean.selectedOperation == 'editSite'}">
+		<p:panel widgetVar="siteListPanel" header="#{msg['site.list.tableHeader']}" > 
+		 	<p:dataTable var="site" value="#{siteOperationsBean.allSites}"> 
+		 		<ui:include src="../paginator.xhtml" />
+		 		
+				<p:column headerText="#{msg['site.domainName']}" sortBy="#{site.domainName}">  
+	            	<h:outputText value="#{site.domainName}" />  
+	  			</p:column> 
+
+				<p:column headerText="#{msg['general.description']}">  
+	            	<h:outputText value="#{site.description}" />  
+	  			</p:column>
+	  			
+				<p:column headerText="#{msg['site.serviceStartDate']}" sortBy="#{site.serviceStartDate}">
+					<h:outputText value="#{site.serviceStartDate}">
+						 <f:convertDateTime pattern="#{Const.DATE_FORMAT}" />
+					</h:outputText>
+	        	</p:column>
+	        	
+	        	<p:column headerText="#{msg['site.serviceEndDate']}" sortBy="#{site.serviceEndDate}">
+					<h:outputText value="#{site.serviceEndDate}">
+						 <f:convertDateTime pattern="#{Const.DATE_FORMAT}" />
+					</h:outputText>
+	        	</p:column>
+	        	
+	        	<p:column headerText="#{msg['site.admins']}">  
+		  			<p:dataList value="#{site.admins}" var="admin" itemType="disc">  
+	    				<h:outputText value="#{admin.firstname}" />  <h:outputText value="#{admin.lastname}" />  
+					</p:dataList> 
+	  			</p:column>
+	  				        	
+				<p:column headerText="#{msg['general.edit']}">
+		      		<p:commandButton icon="ui-icon-wrench" action="#{siteOperationsBean.selectWillBeEditedSite(site.id)}" update=":editSitePanel"/>
+		      	</p:column>
+		      	
+		      	<p:column headerText="#{msg['general.delete']}">
+		      		<p:commandButton icon="ui-icon-trash" action="#{siteOperationsBean.selectWillBeDeletedSite(site)}" update=":confirmationDeleteSiteForm" oncomplete="confirmationDeleteSite.show();"/>
+		      	</p:column>
+	  		</p:dataTable> 
+	 	</p:panel>
+	</h:form>	
+	
+	<p:outputPanel id="editSitePanel" >
+			<ui:param name="site" value="#{siteOperationsBean.willBeEditedSite}" />
+			<br />
+			<br />
+			<p:panel header="#{viewUtils.getParametrizedMsg('site.edit.header', site.domainName)}" rendered="#{siteOperationsBean.selectedOperation == 'editSite' and siteOperationsBean.willBeEditedSite != null}"> 
+				<p:tabView id="editSiteTabs">
+					<p:tab id="generalSiteInformationTab" title="#{msg['site.generalInformation']}">
+			         	<h:form id="editSiteGeneralInformationForm" binding="#{siteOperationsBean.editSiteForm}">
+				           	<h:panelGrid columns="3" style="width:50%">			
+								<p:outputLabel for="domainName" value="#{msg['site.domainName']}:" />
+								<p:inputText id="domainName" value="#{site.domainName}" required="true"/>
+								<p:message for="domainName" />
+									
+								<h:outputText value="#{msg['general.description']}" />
+								<p:inputTextarea id="description" value="#{site.description}" required="true"/>
+								<p:message for="description" />
+								
+								<h:outputText value="#{msg['site.serviceStartDate']}" />
+								<h:outputText value="#{site.serviceStartDate}">
+									<f:convertDateTime pattern="#{Const.DATE_FORMAT}" />
+								</h:outputText>
+								<h:outputText value="" />
+								
+								<p:outputLabel for="serviceEndDate" value="#{msg['site.serviceEndDate']}:" />
+								<p:calendar id="serviceEndDate" value="#{site.serviceEndDate}" readOnlyInputText="true" showOn="button" required="true" pattern="#{Const.DATE_FORMAT}" mindate="#{site.serviceStartDate}"/>
+								<p:message for="serviceEndDate" />
+								
+								<h:outputText value="" />
+								<p:commandButton value="#{msg['general.update']}" action="#{siteOperationsBean.editSite}" update=":editSitePanel, :listSitesForm" />
+							</h:panelGrid>
+						</h:form>
+					</p:tab>
+					
+					<p:tab id="siteAdminsTab" title="#{msg['site.manageAdmins']}">
+						<h:form id="editSiteAdminsForm" >
+							<h:panelGrid columns="1">
+								<p:dataTable var="admin" value="#{site.admins}" > 
+									<p:column headerText="#{msg['general.firstname']}">  
+				            			<h:outputText value="#{admin.firstname}" />  
+				  					</p:column>
+									<p:column headerText="#{msg['general.lastname']}">  
+				            			<h:outputText value="#{admin.lastname}" />  
+				  					</p:column>
+									<p:column headerText="#{msg['site.removePortalAdmin']}">
+						            	<p:commandButton icon="ui-icon-trash" action="#{siteOperationsBean.removeAdminFromSite(site, admin)}" update="@form, :listSitesForm"/>
+				  					</p:column>
+								</p:dataTable>
+								
+								
+								<h:panelGrid columns="2">
+									<p:autoComplete id="willBeAddedPortalAdmins" value="#{siteOperationsBean.willBeAddedPortalAdmins}" completeMethod="#{siteOperationsBean.queryAdminAutoComplete}" multiple="true"
+													var="admin" itemLabel="#{admin.firstname} #{admin.lastname}" itemValue="#{admin}" converter="#{portalAdminConverter}"/>  	
+									<br />
+									<p:commandButton icon="ui-icon-plusthick" value="#{msg['site.addNewAdmins']}" action="#{siteOperationsBean.addPortalAdminsToSite}" update="@form, :listSitesForm"/>		
+								</h:panelGrid>	
+								
+								<br/>
+							</h:panelGrid>
+						</h:form>
+					</p:tab>
+				</p:tabView>
+			</p:panel>
+		
+	</p:outputPanel>
+		
+</html>

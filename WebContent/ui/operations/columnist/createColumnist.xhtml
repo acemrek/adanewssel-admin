@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="createColumnistForm" rendered="#{columnistOperationsBean.selectedOperation == 'createColumnist'}">
+		<ui:param name="columnist" value="#{columnistOperationsBean.willBeCreatedColumnist}" />
+		<h:panelGrid columns="3">
+			<p:outputLabel for="firstname" value="#{msg['general.firstname']}" />			
+			<p:inputText id="firstname" value="#{columnist.firstname}" required="true"/>
+			<p:message for="firstname" />
+				
+			<p:outputLabel for="lastname" value="#{msg['general.lastname']}" />
+			<p:inputText id="lastname" value="#{columnist.lastname}" required="true"/>
+			<p:message for="lastname" />
+			
+			<p:outputLabel for="username" value="#{msg['general.username']}" />
+			<p:inputText id="username" value="#{columnist.username}" required="true"/>
+			<p:message for="username" />
+			
+			<p:outputLabel for="password" value="#{msg['general.password']}" />
+			<p:inputText id="password" value="#{columnist.password}" required="true"/>
+			<p:message for="password" />
+
+			<p:outputLabel for="email" value="#{msg['general.email']}" />
+			<p:inputText id="email" value="#{columnist.email}" required="true"/>
+			<p:message for="email" />
+
+			<p:outputLabel for="gender" value="#{msg['general.gender']}" />
+			<p:selectOneRadio id="gender" value="#{columnist.gender}" required="true">  
+           		<f:selectItem itemLabel="#{msg['general.gender.male']}" itemValue="MALE" />  
+           		<f:selectItem itemLabel="#{msg['general.gender.female']}" itemValue="FEMALE" />  
+             	</p:selectOneRadio>
+			<p:message for="gender" />
+							
+			<p:commandButton value="#{msg['columnist.create']}" action="#{columnistOperationsBean.createColumnist}" process="@form" update=":operationsMenu, :columnistOperationsMainPanel"/>
+		</h:panelGrid>
+	</h:form>
+	
+</html>

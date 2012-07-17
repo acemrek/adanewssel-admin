@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ac.newsadmin.model.entity">
+	<class name="GaleryPhoto" table="GALERY_PHOTO">
+
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="description" type="text" column="DESCRIPTION" />
+		<property name="listOrder" type="int" column="LIST_ORDER" />
+		
+		<many-to-one name="photoGalery" class="com.ac.newsadmin.model.entity.PhotoGalery" column="PHOTO_GALERY_ID" />
+		<many-to-one name="photo" class="com.ac.newsadmin.model.entity.Photo" column="PHOTO_ID" lazy="false" />
+
+	</class>
+</hibernate-mapping>
