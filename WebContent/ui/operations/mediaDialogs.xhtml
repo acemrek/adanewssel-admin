@@ -7,8 +7,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:cc="http://java.sun.com/jsf/composite/cc">
 	
-	<p:dialog modal="true"> 
-		<cc:image photo="#{mediaUtils.willBeViewedPhoto}" size="#{mediaUtils.willBeViewedPhoto}" />		
+	<p:dialog id="mediaPhotoDlg" widgetVar="mediaPhotoDlgWidget" modal="true" position="left top"> 
+		<cc:image photo="#{mediaUtils.willBeViewedPhoto}" size="#{mediaUtils.willBeViewedPhotoSize}" />		
 	</p:dialog>
 	
 </html>

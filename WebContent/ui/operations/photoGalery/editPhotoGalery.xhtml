@@ -93,15 +93,21 @@
 					        <p:column style="width:140px">  
 					            <cc:image photo="#{galeryPhoto.photo}" size="thumb" />  
 					        </p:column>  
-			        		<p:column headerText="#{msg['general.description']}" style="width:380px;">   
+			        		<p:column style="width:350px;">   
 					        	<h:outputText value="#{galeryPhoto.description}" escape="false"/>  
 		      		 		</p:column>
-					        <p:column headerText="#{msg['general.edit']}" style="width:30px;">  
+		      		 		<p:column style="width:30px;">
+		      		 			<p:commandButton icon="ui-icon-zoomin" process="@this" action="#{mediaUtils.setPhotoInfoById}" update=":mediaPhotoDlg" oncomplete="mediaPhotoDlgWidget.show();">
+		      		 				<f:param name="willBeViewedPhotoId" value="#{galeryPhoto.photo.id}" />
+		      		 				<f:param name="willBeViewedPhotoSize" value="large" />
+		      		 			</p:commandButton>
+		      		 		</p:column>
+					        <p:column style="width:30px;">  
 					       		<p:commandButton icon="ui-icon-wrench" action="#{photoGaleryOperationsBean.selectWillBeEditedGaleryPhoto()}" update=":willBeEditGaleryPhotoPanel" oncomplete="willBeEditGaleryPhotoDlg.show();">
 					       			<f:param name="willBeEditedGaleryPhotoId" value="#{galeryPhoto.id}" />
 					       		</p:commandButton>      
 					        </p:column>  
-		      		 		<p:column headerText="#{msg['general.delete']}" style="width:30px;">
+		      		 		<p:column style="width:30px;">
 		      		 			<p:commandButton icon="ui-icon-trash" action="#{photoGaleryOperationsBean.selectWillBeDeletedGaleryPhoto()}" update=":confirmationDeleteGaleryPhotoForm" oncomplete="confirmationDeleteGaleryPhoto.show();">
 		      		 				<f:param name="willBeDeletedGaleryPhotoId" value="#{galeryPhoto.id}" />
 		      		 			</p:commandButton>
