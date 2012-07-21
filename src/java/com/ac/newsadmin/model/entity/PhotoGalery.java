@@ -30,4 +30,8 @@ public class PhotoGalery extends AbstractMediaContent implements Serializable{
 		return CollectionUtils.isEmpty(photos) ? 0 : photos.size();
 	}
 	
+	public GaleryPhoto getPhotoByIndex(int index){
+		return photos.get(index);
+	}
+	
 }

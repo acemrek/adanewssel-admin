@@ -8,7 +8,41 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/cc">
 	
 	<p:dialog id="mediaPhotoDlg" widgetVar="mediaPhotoDlgWidget" modal="true" position="left top"> 
-		<cc:image photo="#{mediaUtils.willBeViewedPhoto}" size="#{mediaUtils.willBeViewedPhotoSize}" />		
+		<br />
+		<cc:image photo="#{mediaUtils.willBeViewedPhoto}" size="#{mediaUtils.willBeViewedPhotoSize}" />
+		<br />		
+	</p:dialog>
+	
+	<p:dialog id="mediaPhotoGaleryDlg" widgetVar="mediaPhotoGaleryDlgWidget" modal="true" position="left top">
+		<br />
+		<h:form>
+			<h:panelGrid columns="1"> 
+				<cc:image photo="#{mediaUtils.willBeViewedPhotoGalery.getPhotoByIndex(mediaUtils.galeryPhotoIndex).photo}" size="#{mediaUtils.willBeViewedPhotoGalerySize}" />
+				
+				<h:panelGrid columns="2">
+					<p:commandButton icon="ui-icon-arrowthick-1-w" value="#{msg['general.prev']}" disabled="#{mediaUtils.galeryPhotoIndex == 0}" action="#{mediaUtils.decrementGaleryPhotoIndex}" update="@form"/>
+					<p:commandButton icon="ui-icon-arrowthick-1-e" value="#{msg['general.next']}" disabled="#{mediaUtils.galeryPhotoIndex == (mediaUtils.willBeViewedPhotoGalery.numberOfPhotos - 1)}"  
+									 action="#{mediaUtils.incrementGaleryPhotoIndex}" update="@form"/>
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:form>
+		<br />
+	</p:dialog>
+	
+	<p:dialog id="mediaVideoDlg" widgetVar="mediaVideoDlgWidget" modal="true" position="left top">
+		<br />
+		<video class="video-js vjs-default-skin" controls="controls" preload="none" width="#{viewUtils.videoThumbnailMediumWidth}" data-setup="{}" poster="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.videoThumbnail.mediumPath)}" >
+		  <source src="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.mp4Path)}" type='video/mp4' />
+		  <source src="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.webMPath)}" type='video/webm' />
+		  <source src="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.oggTheoraPath)}" type='video/ogg' />
+		</video>
+		<br />
+	</p:dialog>
+	
+	<p:dialog id="mediaAudioDlg" widgetVar="mediaAudioDlgWidget" modal="true" position="left top">
+		<br />
+		<audio src="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeListenedAudio.binaryUrl)}" preload="false" />
+		<br />
 	</p:dialog>
 	
 </html>

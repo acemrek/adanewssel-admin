@@ -85,6 +85,13 @@
 
 				<p:tab id="photoGaleryEditPhotosTab" title="#{msg['photoGalery.photos']}">
 					<h:form id="galeryPhotosListForm">
+						
+						<br />
+						
+						<cc:showPhotoGaleryDialog photoGalery="#{photoGaleryOperationsBean.willBeEditedPhotoGalery}" size="large" />
+						
+						<br /><br />
+						
 						<cc:photoUpload tool="#{photoGaleryOperationsBean.photoUploadTool}" panelHeader="#{msg['photoGalery.uploadNewPhoto']}" showReUpload="true"/>
 
 						<br />

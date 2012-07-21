@@ -26,8 +26,8 @@ public class LoginController implements Serializable{
 	@Resource private UserService userService;
 	@Resource private SessionData sessionData;
 	
-	private String username;
-	private String password;
+	private String username = "acemrek";
+	private String password = "8861";
 	
 	public String login(){
 		boolean authenticated = adminAuthenticateService.login(username, password);

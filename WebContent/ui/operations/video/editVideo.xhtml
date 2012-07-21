@@ -76,11 +76,7 @@
 					<p:tab id="videoMediaTab" title="#{msg['video.media']}">
 						
 						<p:outputPanel id="videoWatchPanel" rendered="#{videoOperationsBean.willBeEditedVideo.mp4Path != null}">
-							<video class="video-js vjs-default-skin" controls="controls"  preload="none" width="#{viewUtils.videoThumbnailMediumWidth}" data-setup="{}" poster="#{viewUtils.getFullBinaryUrl(videoOperationsBean.willBeEditedVideo.videoThumbnail.mediumPath)}" >
-							  <source src="#{viewUtils.getFullBinaryUrl(videoOperationsBean.willBeEditedVideo.mp4Path)}" type='video/mp4' />
-							  <source src="#{viewUtils.getFullBinaryUrl(videoOperationsBean.willBeEditedVideo.webMPath)}" type='video/webm' />
-							  <source src="#{viewUtils.getFullBinaryUrl(videoOperationsBean.willBeEditedVideo.oggTheoraPath)}" type='video/ogg' />
-							</video>
+							<cc:showVideoDialog video="#{videoOperationsBean.willBeEditedVideo}" />
 						</p:outputPanel>
 						
 						<p:outputPanel id="videoUploadPanel" rendered="#{videoOperationsBean.willBeEditedVideo.videoThumbnail == null}">
