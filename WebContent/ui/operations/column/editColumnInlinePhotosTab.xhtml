@@ -9,7 +9,7 @@
 	
 	<h:form>
 		<cc:photoUpload tool="#{columnOperationsBean.photoUploadTool}" panelHeader="#{msg['column.uploadInlinePhoto']}" showReUpload="true"/>
-		<p:dataTable  var="singlePhoto" value="#{columnOperationsBean.willBeEditedColumn.photosAsList}">
+		<p:dataTable  var="singlePhoto" value="#{columnOperationsBean.willBeEditedColumn.photosAsList}" emptyMessage="#{msg['general.noRecordsFound']}">
 			<p:column>
 				<cc:image photo="#{singlePhoto}" size="thumb" />
 			</p:column>

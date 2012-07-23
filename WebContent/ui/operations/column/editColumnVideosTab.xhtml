@@ -22,14 +22,14 @@
 		<br />
 	
 		<h:panelGrid columns="1">
-			<p:dataTable var="video" value="#{columnOperationsBean.willBeEditedColumn.videosAsList}">
-				<p:column>
+			<p:dataTable var="video" value="#{columnOperationsBean.willBeEditedColumn.videosAsList}" emptyMessage="#{msg['general.noRecordsFound']}">
+				<p:column headerText="#{msg['general.title']}">
 					<h:outputText value="#{video.title}" />
 				</p:column>
-				<p:column>
-					<cc:showVideoDialog video="#{video}" />
+				<p:column headerText="#{msg['video.watch']}">
+					<cc:showVideoDialog video="#{video}" renderLabel="false"/>
 				</p:column>
-				<p:column>
+				<p:column headerText="#{msg['general.delete']}">
 					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromVideos(video)}" update="@form" />
 				</p:column>
 			</p:dataTable>

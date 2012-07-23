@@ -8,7 +8,7 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/cc">
 	
 	<h:form id="photoGaleryListForm" rendered="#{photoGaleryOperationsBean.selectedOperation == 'editPhotoGalery'}">
-		<p:dataTable id="galeriesTable" var="galery" value="#{photoGaleryOperationsBean.allPhotogaleries}" widgetVar="galeriesTableWidget">
+		<p:dataTable id="galeriesTable" var="galery" value="#{photoGaleryOperationsBean.allPhotogaleries}" widgetVar="galeriesTableWidget" emptyMessage="#{msg['general.noRecordsFound']}">
 			
 			<ui:include src="../paginator.xhtml" />
 			

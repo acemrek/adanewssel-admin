@@ -9,7 +9,7 @@
 
 	<h:form id="listColumnistsForm" prependId="false" rendered="#{columnistOperationsBean.selectedOperation == 'editColumnist'}">
 		<p:panel widgetVar="columnistListPanel" header="#{msg['columnist.list.tableHeader']}" > 
-		 	<p:dataTable var="columnist" value="#{columnistOperationsBean.allColumnists}">
+		 	<p:dataTable var="columnist" value="#{columnistOperationsBean.allColumnists}" emptyMessage="#{msg['general.noRecordsFound']}">
 		 		<ui:include src="../paginator.xhtml" /> 
 		 		
 		 		<p:column>

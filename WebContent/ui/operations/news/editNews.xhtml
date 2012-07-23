@@ -9,7 +9,7 @@
 
 	<p:outputPanel id="editNewsPanel" rendered="#{newsOperationsBean.selectedOperation == 'editNews'}">
 
-		<p:dataTable var="news" value="#{newsOperationsBean.allNews}" > 
+		<p:dataTable var="news" value="#{newsOperationsBean.allNews}" emptyMessage="#{msg['general.noRecordsFound']}"> 
         	<p:column>  
             	<f:facet name="header">
             		<h:outputText value="#{msg['general.createDate']}" />

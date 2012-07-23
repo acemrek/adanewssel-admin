@@ -11,10 +11,14 @@
 	
 	<composite:interface>
 		<composite:attribute name="video" required="true" type="com.ac.newsadmin.model.entity.Video" />
+		<composite:attribute name="renderLabel" required="false" type="java.lang.Boolean" default="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:commandButton icon="ui-icon-video" value="#{msg['video.watch']}" process="@this" update=":mediaVideoDlg" oncomplete="mediaVideoDlgWidget.show();">
+		<p:commandButton icon="ui-icon-video" value="#{msg['video.watch']}" process="@this" update=":mediaVideoDlg" oncomplete="mediaVideoDlgWidget.show();" rendered="#{cc.attrs.renderLabel}">
+   			<f:setPropertyActionListener target="#{mediaUtils.willBeViewedVideo}" value="#{cc.attrs.video}" />
+  		</p:commandButton>
+		<p:commandButton icon="ui-icon-video" process="@this" update=":mediaVideoDlg" oncomplete="mediaVideoDlgWidget.show();" rendered="#{!cc.attrs.renderLabel}">
    			<f:setPropertyActionListener target="#{mediaUtils.willBeViewedVideo}" value="#{cc.attrs.video}" />
   		</p:commandButton>
 	</composite:implementation>

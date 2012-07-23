@@ -12,10 +12,15 @@
 	<composite:interface>
 		<composite:attribute name="photoGalery" required="true" type="com.ac.newsadmin.model.entity.PhotoGalery" />
 		<composite:attribute name="size"  required="true" type="java.lang.String" />
+		<composite:attribute name="renderLabel" required="false" type="java.lang.Boolean" default="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:commandButton icon="ui-icon-arrow-4-diag" value="#{msg['photoGalery.viewAll']}" process="@this" update=":mediaPhotoGaleryDlg" oncomplete="mediaPhotoGaleryDlgWidget.show();">
+		<p:commandButton icon="ui-icon-arrow-4-diag" value="#{msg['photoGalery.viewAll']}" process="@this" update=":mediaPhotoGaleryDlg" oncomplete="mediaPhotoGaleryDlgWidget.show();" rendered="#{cc.attrs.renderLabel}">
+ 		 	<f:setPropertyActionListener target="#{mediaUtils.willBeViewedPhotoGalery}" value="#{cc.attrs.photoGalery}" />
+ 		 	<f:setPropertyActionListener target="#{mediaUtils.willBeViewedPhotoGalerySize}" value="large" />
+   		 </p:commandButton>
+		<p:commandButton icon="ui-icon-arrow-4-diag" process="@this" update=":mediaPhotoGaleryDlg" oncomplete="mediaPhotoGaleryDlgWidget.show();" rendered="#{!cc.attrs.renderLabel}">
  		 	<f:setPropertyActionListener target="#{mediaUtils.willBeViewedPhotoGalery}" value="#{cc.attrs.photoGalery}" />
  		 	<f:setPropertyActionListener target="#{mediaUtils.willBeViewedPhotoGalerySize}" value="large" />
    		 </p:commandButton>

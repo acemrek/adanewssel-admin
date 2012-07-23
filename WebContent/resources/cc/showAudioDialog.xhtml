@@ -11,10 +11,14 @@
 	
 	<composite:interface>
 		<composite:attribute name="audio" required="true" type="com.ac.newsadmin.model.entity.Audio" />
+		<composite:attribute name="renderLabel" required="false" type="java.lang.Boolean" default="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:commandButton icon="ui-icon-play" value="#{msg['audio.listen']}" process="@this" update=":mediaAudioDlg" oncomplete="mediaAudioDlgWidget.show(); audiojs.createAll()">
+		<p:commandButton icon="ui-icon-play" value="#{msg['audio.listen']}" process="@this" update=":mediaAudioDlg" oncomplete="mediaAudioDlgWidget.show(); audiojs.createAll()" rendered="#{cc.attrs.renderLabel}">
+			<f:setPropertyActionListener target="#{mediaUtils.willBeListenedAudio}" value="#{cc.attrs.audio}" />
+		</p:commandButton>
+		<p:commandButton icon="ui-icon-play" process="@this" update=":mediaAudioDlg" oncomplete="mediaAudioDlgWidget.show(); audiojs.createAll()" rendered="#{!cc.attrs.renderLabel}">
 			<f:setPropertyActionListener target="#{mediaUtils.willBeListenedAudio}" value="#{cc.attrs.audio}" />
 		</p:commandButton>
 	</composite:implementation>

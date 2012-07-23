@@ -22,20 +22,20 @@
 		<br />
 	
 		<h:panelGrid columns="1">
-			<p:dataTable var="photoGalery" value="#{columnOperationsBean.willBeEditedColumn.photoGaleriesAsList}">
+			<p:dataTable var="photoGalery" value="#{columnOperationsBean.willBeEditedColumn.photoGaleriesAsList}" emptyMessage="#{msg['general.noRecordsFound']}">
 				<p:column>
 					<cc:image photo="#{photoGalery.coverPhoto.photo}" size="thumb" />
 				</p:column>
-				<p:column>
+				<p:column headerText="#{msg['general.title']}">
 					<h:outputText value="#{photoGalery.title}" />
 				</p:column>
-				<p:column>
+				<p:column headerText="#{msg['photoGalery.numberOfPhotos']}">
 					<h:outputText value="#{photoGalery.numberOfPhotos}" />
 				</p:column>
-				<p:column>
-					<cc:showPhotoGaleryDialog photoGalery="#{photoGalery}" size="large"/>
+				<p:column headerText="#{msg['photoGalery.viewAll']}">
+					<cc:showPhotoGaleryDialog photoGalery="#{photoGalery}" size="large" renderLabel="false"/>
 				</p:column>
-				<p:column>
+				<p:column headerText="#{msg['general.delete']}">
 					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromPhotoGaleries(photoGalery)}" update="@form" />
 				</p:column>
 			</p:dataTable>

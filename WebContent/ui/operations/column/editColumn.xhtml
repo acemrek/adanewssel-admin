@@ -30,7 +30,7 @@
 
        	
        	<p:outputPanel id="editColumnListPanel">
-      		<p:dataTable var="column" value="#{columnOperationsBean.columnsByColumnist}" > 
+      		<p:dataTable var="column" value="#{columnOperationsBean.columnsByColumnist}" emptyMessage="#{msg['general.noRecordsFound']}"> 
       			<ui:include src="../paginator.xhtml" />
       			
 		 		<p:column headerText="#{msg['general.createDate']}">  

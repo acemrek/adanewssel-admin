@@ -8,7 +8,7 @@
 
 	<h:form id="listSitesForm" prependId="false" rendered="#{siteOperationsBean.selectedOperation == 'editSite'}">
 		<p:panel widgetVar="siteListPanel" header="#{msg['site.list.tableHeader']}" > 
-		 	<p:dataTable var="site" value="#{siteOperationsBean.allSites}"> 
+		 	<p:dataTable var="site" value="#{siteOperationsBean.allSites}" emptyMessage="#{msg['general.noRecordsFound']}"> 
 		 		<ui:include src="../paginator.xhtml" />
 		 		
 				<p:column headerText="#{msg['site.domainName']}" sortBy="#{site.domainName}">  
@@ -84,7 +84,7 @@
 					<p:tab id="siteAdminsTab" title="#{msg['site.manageAdmins']}">
 						<h:form id="editSiteAdminsForm" >
 							<h:panelGrid columns="1">
-								<p:dataTable var="admin" value="#{site.admins}" > 
+								<p:dataTable var="admin" value="#{site.admins}" emptyMessage="#{msg['general.noRecordsFound']}"> 
 									<p:column headerText="#{msg['general.firstname']}">  
 				            			<h:outputText value="#{admin.firstname}" />  
 				  					</p:column>

@@ -22,14 +22,14 @@
 		<br />
 	
 		<h:panelGrid columns="1">
-			<p:dataTable var="audio" value="#{columnOperationsBean.willBeEditedColumn.audiosAsList}">
-				<p:column>
+			<p:dataTable var="audio" value="#{columnOperationsBean.willBeEditedColumn.audiosAsList}" emptyMessage="#{msg['general.noRecordsFound']}">
+				<p:column headerText="#{msg['general.title']}">
 					<h:outputText value="#{audio.title}" />
 				</p:column>
-				<p:column>
-					<cc:showAudioDialog audio="#{audio}" />
+				<p:column headerText="#{msg['audio.listen']}">
+					<cc:showAudioDialog audio="#{audio}" renderLabel="false"/>
 				</p:column>
-				<p:column>
+				<p:column headerText="#{msg['general.delete']}">
 					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromAudios(audio)}" update="@form" />
 				</p:column>
 			</p:dataTable>

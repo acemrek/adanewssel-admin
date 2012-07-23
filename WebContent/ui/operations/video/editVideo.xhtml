@@ -8,7 +8,7 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/cc">
 	
 		<h:form id="videoListForm" rendered="#{videoOperationsBean.selectedOperation == 'editVideo'}">
-			<p:dataTable id="videosTable" var="video" value="#{videoOperationsBean.allVideos}">
+			<p:dataTable id="videosTable" var="video" value="#{videoOperationsBean.allVideos}" emptyMessage="#{msg['general.noRecordsFound']}">
 				<ui:include src="../paginator.xhtml" />
 				
 				<p:column headerText="#{msg['general.id']}">

@@ -8,7 +8,7 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/cc">
 	
 	<h:form id="audioListForm" rendered="#{audioOperationsBean.selectedOperation == 'editAudio'}">
-		<p:dataTable id="audiosTable" var="audio" value="#{audioOperationsBean.allAudios}">
+		<p:dataTable id="audiosTable" var="audio" value="#{audioOperationsBean.allAudios}" emptyMessage="#{msg['general.noRecordsFound']}">
 			<ui:include src="../paginator.xhtml" />
 			
 			<p:column headerText="#{msg['general.id']}">

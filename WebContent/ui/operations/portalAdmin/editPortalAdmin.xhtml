@@ -8,7 +8,7 @@
 
 	<h:form id="listPortalAdminsForm" rendered="#{portalAdminOperationsBean.selectedOperation == 'editPortalAdmin'}">
 		<p:panel widgetVar="portalAdminlistPanel" header="#{msg['portalAdmin.list.tableHeader']}" > 
-		 	<p:dataTable var="admin" value="#{portalAdminOperationsBean.allPortalAdmins}"> 
+		 	<p:dataTable var="admin" value="#{portalAdminOperationsBean.allPortalAdmins}" emptyMessage="#{msg['general.noRecordsFound']}"> 
 		 		
 		 		<ui:include src="../paginator.xhtml" />
 		 		
@@ -81,7 +81,7 @@
 				</p:tab>
 				<p:tab id="portalAdminAdminedSites" title="#{msg['portalAdmin.sites']}">
 					<h:form id="editPortalAdminSitesForm" >
-						<p:dataTable var="site" value="#{portalAdmin.sites}" > 
+						<p:dataTable var="site" value="#{portalAdmin.sites}" emptyMessage="#{msg['general.noRecordsFound']}"> 
 							<p:column headerText="#{msg['site.domainName']}">  
 		            			<h:outputText value="#{site.domainName}" />  
 		  					</p:column>
