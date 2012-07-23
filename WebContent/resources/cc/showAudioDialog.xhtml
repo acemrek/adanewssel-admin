@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<composite:interface>
+		<composite:attribute name="audio" required="true" type="com.ac.newsadmin.model.entity.Audio" />
+	</composite:interface>
+	
+	<composite:implementation>
+		<p:commandButton icon="ui-icon-play" value="#{msg['audio.listen']}" process="@this" update=":mediaAudioDlg" oncomplete="mediaAudioDlgWidget.show(); audiojs.createAll()">
+			<f:setPropertyActionListener target="#{mediaUtils.willBeListenedAudio}" value="#{cc.attrs.audio}" />
+		</p:commandButton>
+	</composite:implementation>
+	
+</html>

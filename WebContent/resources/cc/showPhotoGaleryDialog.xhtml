@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<composite:interface>
+		<composite:attribute name="photoGalery" required="true" type="com.ac.newsadmin.model.entity.PhotoGalery" />
+		<composite:attribute name="size"  required="true" type="java.lang.String" />
+	</composite:interface>
+	
+	<composite:implementation>
+		<p:commandButton icon="ui-icon-arrow-4-diag" value="#{msg['photoGalery.viewAll']}" process="@this" update=":mediaPhotoGaleryDlg" oncomplete="mediaPhotoGaleryDlgWidget.show();">
+ 		 	<f:setPropertyActionListener target="#{mediaUtils.willBeViewedPhotoGalery}" value="#{cc.attrs.photoGalery}" />
+ 		 	<f:setPropertyActionListener target="#{mediaUtils.willBeViewedPhotoGalerySize}" value="large" />
+   		 </p:commandButton>
+	</composite:implementation>
+	
+</html>
