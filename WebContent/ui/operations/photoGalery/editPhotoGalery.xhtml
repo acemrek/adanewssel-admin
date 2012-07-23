@@ -98,16 +98,10 @@
 
 						<p:orderList style="width:100%; height:auto;" value="#{photoGaleryOperationsBean.willBeEditedPhotoGalery.photos}" var="galeryPhoto" iconOnly="true" effect="clip" itemValue="#{galeryPhoto}" converter="#{galeryPhotoConverter}" controlsLocation="left" >  
 					        <p:column style="width:140px">  
-					            <cc:image photo="#{galeryPhoto.photo}" size="thumb" />  
+					        	<cc:image photo="#{galeryPhoto.photo}" size="thumb" viewLargeSize="true"/>  
 					        </p:column>  
-			        		<p:column style="width:350px;">   
+			        		<p:column style="width:380px;">   
 					        	<h:outputText value="#{galeryPhoto.description}" escape="false"/>  
-		      		 		</p:column>
-		      		 		<p:column style="width:30px;">
-		      		 			<p:commandButton icon="ui-icon-zoomin" process="@this" action="#{mediaUtils.setPhotoInfoById}" update=":mediaPhotoDlg" oncomplete="mediaPhotoDlgWidget.show();">
-		      		 				<f:param name="willBeViewedPhotoId" value="#{galeryPhoto.photo.id}" />
-		      		 				<f:param name="willBeViewedPhotoSize" value="large" />
-		      		 			</p:commandButton>
 		      		 		</p:column>
 					        <p:column style="width:30px;">  
 					       		<p:commandButton icon="ui-icon-wrench" action="#{photoGaleryOperationsBean.selectWillBeEditedGaleryPhoto()}" update=":willBeEditGaleryPhotoPanel" oncomplete="willBeEditGaleryPhotoDlg.show();">
@@ -120,6 +114,9 @@
 		      		 			</p:commandButton>
 		      		 		</p:column> 
 						</p:orderList>
+						
+						<br />
+						<p:commandButton value="#{msg['photoGalery.orderPhotos']}" action="#{photoGaleryOperationsBean.orderGaleryPhotos}" update="@form" />
 					</h:form>
 				</p:tab>
 

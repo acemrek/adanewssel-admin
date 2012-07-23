@@ -8,5 +8,31 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:cc="http://java.sun.com/jsf/composite/cc">
 	
-	
+	<h:form id="orderActiveColumnsForm" rendered="#{columnOperationsBean.selectedOperation == 'orderActiveColumns' and fn:length(columnOperationsBean.activeColumns) > 0}">
+		
+		<h:panelGrid columns="1" style="text-align:center">
+			<p:orderList style="width:100%; height:auto;" value="#{columnOperationsBean.activeColumns}"  var="column" itemValue="#{column}" converter="#{columnConverter}" iconOnly="true" 
+						 effect="clip" controlsLocation="left" >  
+		        	
+	        	<f:facet name="caption">
+		        	<h:outputText value="#{msg['column.activeColumns']}"/> 
+		        </f:facet>  
+		 		
+		 		<p:column>
+		         	<cc:image photo="#{column.columnist.photo}" size="thumb" />
+		        </p:column>
+		        
+		        <p:column>
+		        	<h:outputText value="#{column.columnist.firstname} #{column.columnist.lastname}" />
+		        </p:column>
+		        
+		 		<p:column>
+		         	<h:outputText value="#{column.title} " />  
+		        </p:column>
+			   
+		    </p:orderList>
+		   
+		    <p:commandButton id="orderColumnsButton" value="#{msg['column.orderColumns']}" action="#{columnOperationsBean.activeColumnsOrderChanged}" update="@form"/>
+		</h:panelGrid>
+	</h:form>	
 </html>

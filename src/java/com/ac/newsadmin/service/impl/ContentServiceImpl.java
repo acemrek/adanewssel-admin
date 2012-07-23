@@ -214,7 +214,18 @@ public class ContentServiceImpl implements ContentService, Serializable{
 	@Transactional
 	public void mergePhotoGalery(PhotoGalery photoGalery) {
 		contentDao.mergePhotoGalery(photoGalery);
-		
+	}
+
+	@Transactional
+	public void orderGaleryPhotos(List<GaleryPhoto> galeryPhotos){
+		int i = 0;
+		for(GaleryPhoto galeryPhoto : galeryPhotos){
+			if(galeryPhoto.getListOrder() != i){
+				galeryPhoto.setListOrder(i);
+				this.updateGaleryPhoto(galeryPhoto);
+			}
+			i++;
+		}
 	}
 	
 	public PhotoGalery getPhotoGaleryById(long photoGaleryId){

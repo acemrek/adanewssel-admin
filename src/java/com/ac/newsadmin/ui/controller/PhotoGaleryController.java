@@ -164,6 +164,9 @@ public class PhotoGaleryController extends AbstractOperationController implement
 		springBeanUtils.autowireBean(photoUploadTool);		
 	}
 	
+	public void orderGaleryPhotos(){
+		contentService.orderGaleryPhotos(willBeEditedPhotoGalery.getPhotos());
+	}
 	
 	@Override
 	public String getDiscriminator() {

@@ -32,7 +32,7 @@
         
         <dependency org="org.glassfish" name="javax.faces" rev="2.1.7" conf="webinfBinaries->default" />
         <dependency org="org.glassfish.web" name="el-impl" rev="2.2" conf="webinfBinaries->default" />
-        <dependency org="org.primefaces" name="primefaces" rev="3.4-SNAPSHOT" conf="webinfBinaries->default" />
+        <dependency org="org.primefaces" name="primefaces" rev="3.3.1" conf="webinfBinaries->default" />
         <dependency org="org.primefaces.themes" name="home" rev="1.0.5" conf="webinfBinaries->default" />
         <dependency org="org.primefaces.extensions" name="primefaces-extensions" rev="0.5.1" conf="webinfBinaries->default" />
         <dependency org="org.primefaces.extensions" name="resources-ckeditor" rev="0.5.1" conf="webinfBinaries->default" />
@@ -71,6 +71,9 @@
         
         <dependency org="javax.servlet" name="servlet-api" rev="2.5" conf="compileBinaries->default"/>
         <dependency org="org.apache.tomcat" name="annotations-api" rev="6.0.18" conf="compileBinaries->default"/>
+        
+        <dependency org="org.primefaces.extensions" name="primefaces-extensions" rev="0.5.1" conf="sources->sources" />
+        <dependency org="org.primefaces" name="primefaces" rev="3.3.1" conf="sources->sources" />
         
         <exclude org="aopalliance" conf="*" />
     </dependencies>

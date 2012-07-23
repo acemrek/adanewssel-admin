@@ -60,6 +60,7 @@ public interface ContentService {
 	void removePhotoGalery(PhotoGalery photoGalery);
 	List<PhotoGalery> getPhotoGaleryBySite(Site site);
 	List<PhotoGalery> getPhotoGaleryBySiteAndPublishStatus(Site site, PublishStatus publishStatus);
+	void orderGaleryPhotos(List<GaleryPhoto> galeryPhotos);
 	
 	void addNewGaleryPhoto(GaleryPhoto galeryPhoto);
 	void updateGaleryPhoto(GaleryPhoto galeryPhoto);

@@ -33,6 +33,9 @@
 					<h:outputText value="#{photoGalery.numberOfPhotos}" />
 				</p:column>
 				<p:column>
+					<cc:showPhotoGaleryDialog photoGalery="#{photoGalery}" size="large"/>
+				</p:column>
+				<p:column>
 					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromPhotoGaleries(photoGalery)}" update="@form" />
 				</p:column>
 			</p:dataTable>

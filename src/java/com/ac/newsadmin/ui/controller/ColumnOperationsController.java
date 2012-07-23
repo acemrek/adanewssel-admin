@@ -109,7 +109,6 @@ public class ColumnOperationsController extends AbstractOperationController impl
 	
 	public void activeColumnsOrderChanged(){
 		contentService.orderActiveColumns(activeColumns);
-		FacesUtils.addMessage("column.edit", "column.order.success", null);
 	}
 	
 	public void initInlinePhotosTool(){

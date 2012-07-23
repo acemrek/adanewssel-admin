@@ -7,6 +7,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:cc="http://java.sun.com/jsf/composite/cc">
 	
+	
+	<h:form prependId="false">
+		<pe:remoteCommand id="viewPhotoCommand" name="viewPhoto" process="@this" actionListener="#{mediaUtils.setPhotoInfoById}" update=":mediaPhotoDlg" oncomplete="mediaPhotoDlgWidget.show()">  
+			<pe:methodSignature parameters="java.lang.Long, java.lang.String" />  
+			<pe:methodParam name="willBeViewedPhotoId"/>
+			<pe:methodParam name="willBeViewedPhotoSize"/> 
+		</pe:remoteCommand>
+	</h:form>
+	
 	<p:dialog id="mediaPhotoDlg" widgetVar="mediaPhotoDlgWidget" modal="true" position="left top"> 
 		<br />
 		<cc:image photo="#{mediaUtils.willBeViewedPhoto}" size="#{mediaUtils.willBeViewedPhotoSize}" />
@@ -29,9 +38,9 @@
 		<br />
 	</p:dialog>
 	
-	<p:dialog id="mediaVideoDlg" widgetVar="mediaVideoDlgWidget" modal="true" position="left top">
+	<p:dialog id="mediaVideoDlg" widgetVar="mediaVideoDlgWidget" modal="true" position="left top" onHide="$('video').remove();" >
 		<br />
-		<video class="video-js vjs-default-skin" controls="controls" preload="none" width="#{viewUtils.videoThumbnailMediumWidth}" data-setup="{}" poster="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.videoThumbnail.mediumPath)}" >
+		<video id="dialogVideo" class="video-js vjs-default-skin" controls="controls" preload="none" width="#{viewUtils.videoThumbnailMediumWidth}" data-setup="{}" poster="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.videoThumbnail.mediumPath)}" >
 		  <source src="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.mp4Path)}" type='video/mp4' />
 		  <source src="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.webMPath)}" type='video/webm' />
 		  <source src="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeViewedVideo.oggTheoraPath)}" type='video/ogg' />
@@ -39,10 +48,21 @@
 		<br />
 	</p:dialog>
 	
-	<p:dialog id="mediaAudioDlg" widgetVar="mediaAudioDlgWidget" modal="true" position="left top">
+	<p:dialog id="mediaAudioDlg" widgetVar="mediaAudioDlgWidget" modal="true" position="left top" onHide="$('audio').attr('src', '');">
 		<br />
 		<audio src="#{viewUtils.getFullBinaryUrl(mediaUtils.willBeListenedAudio.binaryUrl)}" preload="false" />
 		<br />
 	</p:dialog>
+	
+	
+	
+	<SCRIPT type="text/javascript">
+	
+		  function clearVideo(){
+			  var myPlayer = _V_("dialogVideo");
+			  myPlayer.pause();
+		  }
+	
+	</SCRIPT>
 	
 </html>

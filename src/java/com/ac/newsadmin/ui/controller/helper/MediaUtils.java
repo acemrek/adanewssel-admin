@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.ac.common.utility.FacesUtils;
 import com.ac.newsadmin.model.entity.Audio;
 import com.ac.newsadmin.model.entity.Photo;
 import com.ac.newsadmin.model.entity.PhotoGalery;
@@ -32,10 +31,9 @@ public class MediaUtils implements Serializable{
 	
 	private Audio willBeListenedAudio;
 	
-	public void setPhotoInfoById(){
-		long photoId = FacesUtils.getHttpParamAsLong("willBeViewedPhotoId");
-		willBeViewedPhoto = contentService.getPhotoById(photoId);
-		willBeViewedPhotoSize = FacesUtils.getHttpParamAsString("willBeViewedPhotoSize");
+	public void setPhotoInfoById(Long willBeViewedPhotoId, String willBeViewedPhotoSize){
+		willBeViewedPhoto = contentService.getPhotoById(willBeViewedPhotoId);
+		this.willBeViewedPhotoSize = willBeViewedPhotoSize;
 	}
 	
 	public void incrementGaleryPhotoIndex(){

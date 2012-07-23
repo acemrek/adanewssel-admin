@@ -27,6 +27,9 @@
 					<h:outputText value="#{video.title}" />
 				</p:column>
 				<p:column>
+					<cc:showVideoDialog video="#{video}" />
+				</p:column>
+				<p:column>
 					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromVideos(video)}" update="@form" />
 				</p:column>
 			</p:dataTable>

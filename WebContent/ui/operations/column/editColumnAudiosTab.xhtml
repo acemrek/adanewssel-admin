@@ -27,6 +27,9 @@
 					<h:outputText value="#{audio.title}" />
 				</p:column>
 				<p:column>
+					<cc:showAudioDialog audio="#{audio}" />
+				</p:column>
+				<p:column>
 					<p:commandButton icon="ui-icon-trash" action="#{columnOperationsBean.removeFromAudios(audio)}" update="@form" />
 				</p:column>
 			</p:dataTable>
