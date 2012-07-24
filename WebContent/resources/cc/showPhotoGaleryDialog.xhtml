@@ -15,7 +15,7 @@
 		<composite:attribute name="renderLabel" required="false" type="java.lang.Boolean" default="true"/>
 	</composite:interface>
 	
-	<composite:implementation>
+	<composite:implementation xmlns:cc="http://java.sun.com/jsf/composite/cc">
 		<p:commandButton icon="ui-icon-arrow-4-diag" value="#{msg['photoGalery.viewAll']}" process="@this" update=":mediaPhotoGaleryDlg" oncomplete="mediaPhotoGaleryDlgWidget.show();" rendered="#{cc.attrs.renderLabel}">
  		 	<f:setPropertyActionListener target="#{mediaUtils.willBeViewedPhotoGalery}" value="#{cc.attrs.photoGalery}" />
  		 	<f:setPropertyActionListener target="#{mediaUtils.willBeViewedPhotoGalerySize}" value="large" />

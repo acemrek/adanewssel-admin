@@ -14,7 +14,7 @@
 		<composite:attribute name="renderLabel" required="false" type="java.lang.Boolean" default="true"/>
 	</composite:interface>
 	
-	<composite:implementation>
+	<composite:implementation xmlns:cc="http://java.sun.com/jsf/composite/cc">
 		<p:commandButton icon="ui-icon-video" value="#{msg['video.watch']}" process="@this" update=":mediaVideoDlg" oncomplete="mediaVideoDlgWidget.show();" rendered="#{cc.attrs.renderLabel}">
    			<f:setPropertyActionListener target="#{mediaUtils.willBeViewedVideo}" value="#{cc.attrs.video}" />
   		</p:commandButton>

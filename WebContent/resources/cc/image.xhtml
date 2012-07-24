@@ -14,7 +14,7 @@
 		<composite:attribute name="size"  required="true" type="java.lang.String" />
 	</composite:interface>
 	
-	<composite:implementation>
+	<composite:implementation xmlns:cc="http://java.sun.com/jsf/composite/cc">
 		<p:graphicImage url="#{viewUtils.getFullBinaryUrl(cc.attrs.photo.thumbnailPath)}" rendered="#{cc.attrs.size == 'thumb'}" ondblclick="viewPhoto(#{cc.attrs.photo.id},'large')"/>
 		<p:graphicImage url="#{viewUtils.getFullBinaryUrl(cc.attrs.photo.smallPath)}" rendered="#{cc.attrs.size == 'small'}" ondblclick="viewPhoto(#{cc.attrs.photo.id},'large')"/>
 		<p:graphicImage url="#{viewUtils.getFullBinaryUrl(cc.attrs.photo.mediumPath)}" rendered="#{cc.attrs.size == 'medium'}" ondblclick="viewPhoto(#{cc.attrs.photo.id},'large')"/>

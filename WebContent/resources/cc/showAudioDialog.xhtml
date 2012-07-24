@@ -14,7 +14,7 @@
 		<composite:attribute name="renderLabel" required="false" type="java.lang.Boolean" default="true"/>
 	</composite:interface>
 	
-	<composite:implementation>
+	<composite:implementation xmlns:cc="http://java.sun.com/jsf/composite/cc">
 		<p:commandButton icon="ui-icon-play" value="#{msg['audio.listen']}" process="@this" update=":mediaAudioDlg" oncomplete="mediaAudioDlgWidget.show(); audiojs.createAll()" rendered="#{cc.attrs.renderLabel}">
 			<f:setPropertyActionListener target="#{mediaUtils.willBeListenedAudio}" value="#{cc.attrs.audio}" />
 		</p:commandButton>

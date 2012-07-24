@@ -15,7 +15,10 @@
 		<ui:define name="menu">
 			<h:form>
 				<p:menu id="configOpsMenu" styleClass="opMenu">
-					<p:menuitem value="#{msg['configOperations.changePreferences']}" styleClass="#{configOperationsBean.getCssClass('changePreferences')}" action="#{configOperationsBean.showChangePreferencesForm}" update="#{contentsToUpdateAfterOpChange}" />
+					<p:menuitem value="#{msg['configOperations.writtenContentPhotoSizes']}" styleClass="#{configOperationsBean.getCssClass('writtenContentPhotoSizes')}" action="#{configOperationsBean.showWrittenContentPhotoSizesForm}" update="#{contentsToUpdateAfterOpChange}" />
+					<p:menuitem value="#{msg['configOperations.columnistPhotoSizes']}" styleClass="#{configOperationsBean.getCssClass('columnistPhotoSizes')}" action="#{configOperationsBean.showColumnistPhotoSizesForm}" update="#{contentsToUpdateAfterOpChange}" />
+					<p:menuitem value="#{msg['configOperations.photoGaleryPhotoSizes']}" styleClass="#{configOperationsBean.getCssClass('photoGaleryPhotoSizes')}" action="#{configOperationsBean.showPhotoGaleryPhotoSizesForm}" update="#{contentsToUpdateAfterOpChange}" />
+					<p:menuitem value="#{msg['configOperations.videoThumbnailPhotoSizes']}" styleClass="#{configOperationsBean.getCssClass('videoThumbnailPhotoSizes')}" action="#{configOperationsBean.showVideoThumbnailPhotoSizesForm}" update="#{contentsToUpdateAfterOpChange}" />
 				</p:menu>
 			</h:form>
 		</ui:define>
@@ -26,7 +29,10 @@
 		
 		<ui:define name="content">	
 			<p:outputPanel id="configOperationsMainPanel">
-				<ui:include src="changePreferences.xhtml" />
+				<ui:include src="writtenContentPhotoSizes.xhtml" />
+				<ui:include src="columnistPhotoSizes.xhtml" />
+				<ui:include src="photoGaleryPhotoSizes.xhtml" />
+				<ui:include src="videoThumbnailPhotoSizes.xhtml" />
 			</p:outputPanel>
 		</ui:define>
 		

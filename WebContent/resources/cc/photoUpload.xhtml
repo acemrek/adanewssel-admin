@@ -17,7 +17,7 @@
 		<composite:attribute name="displayed" required="false" type="boolean" default="true"/>
 	</composite:interface>
 
-	<composite:implementation>
+	<composite:implementation xmlns:cc="http://java.sun.com/jsf/composite/cc">
 		
 		<h:panelGroup layout="block" rendered="#{cc.attrs.displayed and !cc.attrs.tool.completedSuccessfully}">
 			<h:panelGrid columns="2" rendered="#{fn:length(cc.attrs.tool.possibleAspectRatios) > 1}">
